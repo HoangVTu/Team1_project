@@ -1,13 +1,13 @@
 ## <remove all of the example text and notes in < > such as this one>
 
 ## Functional Requirements
-1. Create and Save New Notes - Users can create new text notes and save them to their account
-2. Edit Existing Notes - Users can edit the text of their existing notes
-3. Note Reminders - Users can get alerted to go back to a specific note this will show up on their note page
+1. Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
+2. Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
+3. Note Reminders - Users can get alerted to go back to a specific note this will show up on their note page (Akhil)
 4. Highlight Text - Users can highlight text within a note
-5. requirement
-6. requirement
-7. requirement
+5. Creat an Account - Allowing users to create an account to used the app (Hoang)
+6. Log in - Allowing users to log into their account to access the app (Hoang)
+7. Passwords Reset - Allowing user to reset their password in the app (Hoang) 
 8. requirement
 9. requirement
 10. requirement
@@ -24,7 +24,7 @@
 
 <each of the 14 requirements will have a use case associated with it>
 ## Use Cases 
-1. Create and Save New Notes |Akhil - Milestone is one week after UI is built out
+1. Create and Save New Notes (Akhil) - Milestone is one week after UI is built out
 - **Pre-condition:** User is logged in and has an account
 - **Trigger:** User clicks create a new note button
 - **Primary Sequence:**
@@ -38,7 +38,7 @@
 1. User does not enter any text and clicks "Save"
 2. System tells user they can not make an empty note
 
-2. Edit Existing Notes |Akhil - Milestone is one week after UI is built out
+2. Edit Existing Notes (Akhil) - Milestone is one week after UI is built out
 - **Pre-condition:** User is logged in and has saved notes
 - **Trigger:** User clicks edit button on a note
 - **Primary Sequence:**
@@ -52,7 +52,7 @@
 1. User does notmake any changes anc clicks "Save"
 2. System exits and tells user no changes were made
 
-3. Note Reminders |Akhil - Milestone is one week after Edit and Save Notes requirements are completed
+3. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed
 - **Pre-condition:** User is logged in and has saved notes
 - **Trigger:** User clicks reminder button in a note
 - **Primary Sequence:**
@@ -68,7 +68,7 @@
 1. User does not select a date and clicks "Save"
 2. System alerts user they have to select date and time for the reminder
 
-4. Highlight Text |Akhil - Milestone is one week after Edit and Save Notes requirements are completed
+4. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed
 - **Pre-condition:** User is logged in a Note Editor State
 - **Trigger:** User wants to highlight text within note
 - **Primary Sequence:**
@@ -82,3 +82,18 @@
 - **Alternate Sequence:** 
 1. User does not select any text and clicks on "Highlight" Button
 2. System alerts user they have to select text in order to highlight
+
+5. Creat an Account (Hoang) 
+- **Pre-condition:** User must go to the app
+- **Trigger:** User click on the "Create Account" button
+- **Primary Sequence:**
+
+6. Log in (Hoang)
+- **Pre-condition:** User must go to the app
+- **Trigger:** User click on the "Log In" button
+- **Primary Sequence:**
+
+7. Passwords Reset (Hoang)
+- **Pre-condition:** User must go to the app
+- **Trigger:** User click on the "Log In" button and chose the option "Password Reset"
+- **Primary Sequence:**
