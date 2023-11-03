@@ -5,13 +5,13 @@
 2. Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
 3. Note Reminders - Users can get alerted to go back to a specific note this will show up on their note page (Akhil)
 4. Highlight Text - Users can highlight text within a note
-5. Creat an Account - Allowing users to create an account to used the app (Hoang)
+5. Create an Account - Allowing users to create an account to used the app (Hoang)
 6. Log in - Allowing users to log into their account to access the app (Hoang)
 7. Passwords Reset - Allowing user to reset their password in the app (Hoang) 
-8. requirement
-9. requirement
-10. requirement
-11. requirement
+8. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
+9. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
+10. File to Folder Organization - Allows user to organize each note to different folder or organize them by tags(Gautam)
+11. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
 12. requirement
 13. requirement
 14. requirement
