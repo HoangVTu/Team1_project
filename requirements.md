@@ -19,9 +19,8 @@
 1. The website should be responsive and functional on IOS and Macbooks
 2. All webpages should load within 3 seconds - will be tested manually on a macbook
 
-<each of the 14 requirements will have a use case associated with it>
 ## Use Cases 
-1. Create and Save New Notes (Akhil) - Milestone is one week after UI is built out
+**1. Create and Save New Notes (Akhil) - Milestone is one week after UI is built out**
 - **Pre-condition:** User is logged in and has an account
 - **Trigger:** User clicks create a new note button
 - **Primary Sequence:**
@@ -35,7 +34,7 @@
 1. User does not enter any text and clicks "Save"
 2. System tells user they can not make an empty note
 
-2. Edit Existing Notes (Akhil) - Milestone is one week after UI is built out
+**2. Edit Existing Notes (Akhil) - Milestone is one week after UI is built out**
 - **Pre-condition:** User is logged in and has saved notes
 - **Trigger:** User clicks edit button on a note
 - **Primary Sequence:**
@@ -49,7 +48,7 @@
 1. User does notmake any changes anc clicks "Save"
 2. System exits and tells user no changes were made
 
-3. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed
+**3. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in and has saved notes
 - **Trigger:** User clicks reminder button in a note
 - **Primary Sequence:**
@@ -65,7 +64,7 @@
 1. User does not select a date and clicks "Save"
 2. System alerts user they have to select date and time for the reminder
 
-4. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed
+**4. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in a Note Editor State
 - **Trigger:** User wants to highlight text within note
 - **Primary Sequence:**
@@ -80,7 +79,7 @@
 1. User does not select any text and clicks on "Highlight" Button
 2. System alerts user they have to select text in order to highlight
 
-5. Creat an Account (Hoang) 
+**5. Creat an Account (Hoang)**
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Create Account" button
 - **Primary Sequence:**
@@ -94,7 +93,7 @@
 1. User did not enter a email for the account
 2. System will alert the user to enter missing field for information
 
-6. Log in (Hoang)
+**6. Log in (Hoang)**
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Log In" button
 - **Primary Sequence:**
@@ -106,7 +105,7 @@
 - **Alternate Sequence:** 
 1. User did not enter the correct username or password
 
-7. Passwords Reset (Hoang)
+**7. Passwords Reset (Hoang)**
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Log In" button and chose the option "Password Reset"
 - **Primary Sequence:**
@@ -120,7 +119,7 @@
 - **Alternate Sequence:** 
 1. User did not enter the new password correct in the field "Re-type new password"
 
-8. ... (Gautam) 
+**8. ... (Gautam)**
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -133,7 +132,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-9. ... (Gautam) 
+**9. ... (Gautam)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -146,7 +145,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-10. ... (Gautam) 
+**10. ... (Gautam)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -159,7 +158,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-11. ... (Gautam) 
+**11. ... (Gautam)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -172,7 +171,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-12. ... (Steve) 
+**12. ... (Steve)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -185,7 +184,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-13. ... (Steve) 
+**13. ... (Steve)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
@@ -198,7 +197,7 @@
 - **Alternate Sequence:** 
 1. ...
 
-14. ... (Steve) 
+**14. ... (Steve)** 
 - **Pre-condition:** ...
 - **Trigger:** ...
 - **Primary Sequence:**
