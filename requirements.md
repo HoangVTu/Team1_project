@@ -15,6 +15,8 @@
 13. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
 14. Collaboration - Allow users to collaborate on notes with other users (Steve)
 
+[sketch](images/sketch.jpg) 
+
 ## Non-functional Requirements
 1. The website should be responsive and functional on IOS and Macbooks
 2. All webpages should load within 3 seconds - will be tested manually on a Macbook
