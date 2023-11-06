@@ -137,7 +137,7 @@
 3. User can exit or try again with a new keyword
 
 **9. Lock File Function(Gautam)**
-- **Pre-condition*:** User is logged into the app and is on a specific note page
+- **Pre-condition:** User is logged into the app and is on a specific note page
 - **Trigger:** User wants to lock a note file for privacy
 - **Primary Sequence:**
 1. User navigates to Lock File button in top right corner 
@@ -152,7 +152,7 @@
 4. User clicks on either one
 
 10. File to Folder Organization(Gautam)
-- **Pre-condition*:** User is logged into the app 
+- **Pre-condition:** User is logged into the app 
 - **Trigger:** User wants to organize a note to a specific folder
 - **Primary Sequence:**
 1. User navigates to "Create Folder" button 
@@ -170,7 +170,7 @@
 
 
 **11. Dark Mode Function(Gautam)**
-- **Pre-condition*:** User is logged into the app 
+- **Pre-condition:** User is logged into the app 
 - **Trigger:** User wants to invert the colors and switch to "dark mode"
 - **Primary Sequence:**
 1. User navigates to settings page 
