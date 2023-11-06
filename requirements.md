@@ -4,16 +4,18 @@
 2. Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
 3. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
 4. Highlight Text - Users can highlight text within a note (Akhil)
-5. Create an Account - Allowing users to create an account to use the app (Hoang)
-6. Log in - Allowing users to log into their account to access the app (Hoang)
-7. Passwords Reset - Allowing the user to reset their password in the app (Hoang) 
-8. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
-9. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
-10. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
-11. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
-12. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
-13. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
-14. Collaboration - Allow users to collaborate on notes with other users (Steve)
+6. Create an Account - Allowing users to create an account to use the app (Hoang)
+7. Log in - Allowing users to log into their account to access the app (Hoang)
+8. Passwords Reset - Allowing the user to reset their password in the app (Hoang) 
+9. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
+10. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
+11. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
+12. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
+13. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
+14. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
+15. Collaboration - Allow users to collaborate on notes with other users (Steve)
+16. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+
 
 [sketch](images/sketch.jpg) 
 
@@ -80,6 +82,7 @@
 - **Alternate Sequence:** 
 1. The user does not select any text and clicks on the "Highlight" Button
 2. System alerts users they have to select text to highlight
+
 
 **5. Create an Account (Hoang)**
 - **Pre-condition:** User must go to the app
@@ -217,3 +220,14 @@
 - **Primary Postconditions:** The note is updated with the collective contributions of all users & all users have a consistent view of the note
 - **Alternate Sequence:** 
 1. If there is a conflict between changes made by different users, a conflict resolution mechanism will be used to determine which change is accepted
+
+**16. Insipirational Qoutes (External API) (Akhil) - Milestone is once dashboard page is created**
+- **Pre-condition:** User is logged in to the application
+- **Trigger:** User navigation to dashboard
+- **Primary Sequence:**
+1. User navigates to dashboard
+2. System queries insipirational qoute website and displays qoute on dashboard
+3. User can choose to read the qoute as it will be displayed when they are navigating around
+- **Primary Postconditions:** Qoute is cleared from memory upon navigation away from dashboard page
+- **Alternate Sequence:** 
+1. The user is not logged in and navigates to dashboard, system should not query api 
