@@ -125,62 +125,62 @@
 - **Pre-condition** User is logged into the app
 - **Trigger:** User wants to search for a specific note 
 - **Primary Sequence:** 
-1. User navigates to Search Bar
-2. User clicks on Search Bar
-3. User types in title/tag associated with the note
-4. User clicks on enter button 
-5. System displays a list of note pages related to the keyword/tag
+1. User navigates to the Search Bar
+2. The user clicks on the Search Bar
+3. The user types in the title/tag associated with the note
+4. The user clicks on the enter button 
+5. The system displays a list of note pages related to the keyword/tag
 - **Primary Postconditions:** User is able to choose from the given list of notes 
 - **Alternate Sequence:**
-1. System does not display a list of notes due to keyword/tag not matching 
-2. System displays a message of "No notes were found"
-3. User can exit or try again with a new keyword
+1. The system does not display a list of notes due to the keyword/tag not matching 
+2. The system displays a message of "No notes were found"
+3. The user can exit or try again with a new keyword
 
 **9. Lock File Function(Gautam)**
 - **Pre-condition*:** User is logged into the app and is on a specific note page
 - **Trigger:** User wants to lock a note file for privacy
 - **Primary Sequence:**
-1. User navigates to Lock File button in top right corner 
-2. User click on Lock File Button
-3. System displays a box asking user to input their account password 
-4. System displays a text message saying "Note has been locked"
+1. The user navigates to the Lock File button in the top right corner 
+2. The user clicks on the Lock File Button
+3. The system displays a box asking the user to input their account password 
+4. The system displays a text message saying, "Note has been locked"
 - **Primary Postconditions:** The note is locked and cannot be accessed unless a password is entered
 - **Alternate Sequence:**
-1. User is not able to lock the file due incorrect password or forgotten password
+1. The user is not able to lock the file due to an incorrect password or forgotten password
 2. System displays incorrect password message
-3. System displays a try again button and forgot password button
-4. User clicks on either one
+3. The system displays a "try again" button and a "forgot password" button
+4. The user clicks on either one
 
 10. File to Folder Organization(Gautam)
 - **Pre-condition*:** User is logged into the app 
 - **Trigger:** User wants to organize a note to a specific folder
 - **Primary Sequence:**
-1. User navigates to "Create Folder" button 
-2. User click on "Create Folder" Button
+1. User navigates to the "Create Folder" button 
+2. The user clicks on the "Create Folder" Button
 3. System displays a text box to name the folder 
-4. User names the folder
-5. System displays a list of note files that the user can add 
-- **Primary Postconditions:** The folder that was created contains note files that user wanted to add and is organized
+4. The user names the folder
+5. The system displays a list of note files that the user can add 
+- **Primary Postconditions:** The folder that was created contains note files that the user wanted to add and is organized
 - **Alternate Sequence:**
-1. User chooses to add a subfolder within the folder
+1. The user chooses to add a subfolder within the folder
 2. System displays add a new folder button
-3. User clicks the button
-4. System displats a text box to name the folder
-5. System displays a list of note files that the user can add
+3. The user clicks the button
+4. System displays a text box to name the folder
+5. The system displays a list of note files that the user can add
 
 
 **11. Dark Mode Function(Gautam)**
 - **Pre-condition*:** User is logged into the app 
 - **Trigger:** User wants to invert the colors and switch to "dark mode"
 - **Primary Sequence:**
-1. User navigates to settings page 
-2. User click on "Switch to Dark Mode" (Moon symbol) button
+1. The user navigates to the settings page 
+2. The user clicks on the "Switch to Dark Mode" (Moon symbol) button
 3. System inverts the colors of the background, text, and any other elements 
 - **Primary Postconditions:** The app is in "Dark Mode"
 - **Alternate Sequence:**
 1. User chooses not to switch to dark mode
 2. User clicks "Revert" button 
-3. System displays page with regular colors
+3. The system displays a page with regular colors
 
 **12. Note Sharing (Steve)** 
 - **Pre-condition:** User has created a note
