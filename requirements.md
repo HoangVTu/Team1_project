@@ -171,31 +171,30 @@
 - **Alternate Sequence:** 
 1. ...
 
-**12. ... (Steve)** 
+**12. Note Sharing (Steve)** 
 - **Pre-condition:** User has created a note
 - **Trigger:** User wants to share the note with another user
 - **Primary Sequence:**
-1. The user selects the note they want to share.
-2. The user clicks the "Share" button.
-3. The user enters the email address of the user they want to share the note with.
-4. The user selects the desired access level (read or write) for the shared user.
-5. The user clicks the "Share" button.
+1. The user selects the note they want to share
+2. The user clicks the "Share" button
+3. The user enters the email address of the user they want to share the note with
+4. The user selects the desired access level (read or write) for the shared user
+5. The user clicks the "Share" button
 - **Primary Postconditions:** The shared user receives an email with a link to the note & can access the note with the specified access level
 - **Alternate Sequence:** 
 1. If the shared user does not have an account, they will be prompted to create one
 
-**13. ... (Steve)** 
-- **Pre-condition:** ...
-- **Trigger:** ...
+**13. Note Export (Steve)** 
+- **Pre-condition:** User has created a note
+- **Trigger:** User wants to export the note to a different format
 - **Primary Sequence:**
-1. ...
-2. ...
-3. ...
-4. ...
-5. ...
-- **Primary Postconditions:** ...
+1. The user selects the note they want to export
+2. User clicks the "Export" button
+3. The user selects the desired export format
+4. User clicks the "Export" button
+- **Primary Postconditions:** The note is exported to the selected format & saved to the user's computer
 - **Alternate Sequence:** 
-1. ...
+1. If the user does not have the required software to open the exported file, they will be prompted to download it
 
 **14. ... (Steve)** 
 - **Pre-condition:** ...
