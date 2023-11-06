@@ -1,12 +1,12 @@
 # Requirements 
 ## Functional Requirements
-1. Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
-2. Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
+1. *Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
+2. *Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
 3. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
 4. Highlight Text - Users can highlight text within a note (Akhil)
-6. Create an Account - Allowing users to create an account to use the app (Hoang)
+6. *Create an Account - Allowing users to create an account to use the app (Hoang)
 7. Log in - Allowing users to log into their account to access the app (Hoang)
-8. Passwords Reset - Allowing the user to reset their password in the app (Hoang) 
+8. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
 9. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
 10. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
 11. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
@@ -15,12 +15,9 @@
 14. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
 15. Collaboration - Allow users to collaborate on notes with other users (Steve)
 16. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
-
-
-[sketch](images/sketch.jpg) 
-
+ 
 ## Non-functional Requirements
-1. The website should be responsive and functional on IOS and Macbooks
+1. *The website should be responsive and functional on IOS and Macbooks
 2. All webpages should load within 3 seconds - will be tested manually on a Macbook
 
 ## Use Cases 
@@ -84,7 +81,7 @@
 2. System alerts users they have to select text to highlight
 
 
-**5. Create an Account (Hoang)**
+**5. Create an Account (Hoang)** [account](images/Sign_Up.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Create Account" button
 - **Primary Sequence:**
@@ -98,7 +95,7 @@
 1. User did not enter an email for the account
 2. The system will alert the user to enter the missing field for information
 
-**6. Log in (Hoang)**
+**6. Log in (Hoang)** [log_in](images/Login_Page.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Log In" button
 - **Primary Sequence:**
@@ -110,19 +107,17 @@
 - **Alternate Sequence:** 
 1. The user did not enter the correct username or password
 
-**7. Passwords Reset (Hoang)**
+**7. Log Out (Hoang)** [log_out](images/Log_Out.jpg)
 - **Pre-condition:** User must go to the app
-- **Trigger:** User clicks on the "Log In" button and chooses the option "Password Reset"
+- **Trigger:** User finish logging in and chooses the option "Log Out"
 - **Primary Sequence:**
 1. User nagivate to the app
 2. User select the "Log In" button on the app 
-3. User select the "Password Reset" option
-4. The user fills in their new desired username and password with other information
-5. The user clicks on the "Submit" button to reset the password
-6. The system will process the information and save the account credential
-- **Primary Postconditions:** System will say password reset is successful to user
+3. User must successfully log into their account
+4. The user chose the option "Log Out"
+- **Primary Postconditions:** System will successful sign the user out of their account
 - **Alternate Sequence:** 
-1. The user did not enter the new password correctly in the field "Re-type new password"
+1. The user did not successfully log into their account
 
 **8. Search Function(Gautam)**
 - **Pre-condition** User is logged into the app
