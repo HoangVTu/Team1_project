@@ -121,57 +121,66 @@
 - **Alternate Sequence:** 
 1. The user did not enter the new password correctly in the field "Re-type new password"
 
-**8. Search Function (Gautam)**
-- **Pre-condition:** User has created one or more notes
-- **Trigger:** User wants to find a specific note
-- **Primary Sequence:**
-1. The user enters a search term in the search bar
-2. The app searches the titles and bodies of all notes for the search term
-3. The app displays a list of notes that match the search term
-4. ...
-5. ...
-- **Primary Postconditions:** The user can see a list of notes that match their search term & can click on any note in the list to view it
-- **Alternate Sequence:** 
-1. If no notes match the search term, the app will display a message indicating that no notes were found
+**8. Search Function(Gautam)**
+- **Pre-condition** User is logged into the app
+- **Trigger:** User wants to search for a specific note 
+- **Primary Sequence:** 
+1. User navigates to Search Bar
+2. User clicks on Search Bar
+3. User types in title/tag associated with the note
+4. User clicks on enter button 
+5. System displays a list of note pages related to the keyword/tag
+- **Primary Postconditions:** User is able to choose from the given list of notes 
+- **Alternate Sequence:**
+1. System does not display a list of notes due to keyword/tag not matching 
+2. System displays a message of "No notes were found"
+3. User can exit or try again with a new keyword
 
-**9. Lock File Function (Gautam)** 
-- **Pre-condition:** User has created a note
-- **Trigger:** User wants to protect the note with a password
+**9. Lock File Function(Gautam)**
+- **Pre-condition*:** User is logged into the app and is on a specific note page
+- **Trigger:** User wants to lock a note file for privacy
 - **Primary Sequence:**
-1. The user selects the note they want to lock
-2. The user clicks the "Lock" button
-3. The user enters a password for the note
-4. The user clicks the "Lock" button
-5. ...
-- **Primary Postconditions:** The note is locked with a password & users cannot view or edit the note without entering the password
-- **Alternate Sequence:** 
-1. If the user forgets the password, they will not be able to access the note
+1. User navigates to Lock File button in top right corner 
+2. User click on Lock File Button
+3. System displays a box asking user to input their account password 
+4. System displays a text message saying "Note has been locked"
+- **Primary Postconditions:** The note is locked and cannot be accessed unless a password is entered
+- **Alternate Sequence:**
+1. User is not able to lock the file due incorrect password or forgotten password
+2. System displays incorrect password message
+3. System displays a try again button and forgot password button
+4. User clicks on either one
 
-**10. File to Folder Organization (Gautam)** 
-- **Pre-condition:** User has created one or more notes
-- **Trigger:** User wants to organize their notes into folders
+10. File to Folder Organization(Gautam)
+- **Pre-condition*:** User is logged into the app 
+- **Trigger:** User wants to organize a note to a specific folder
 - **Primary Sequence:**
-1. The user creates a new folder
-2. The user selects the notes they want to move to the folder
-3. The user drags and drops the notes into the folder
-4. ...
-5. ...
-- **Primary Postconditions:** The notes are moved to the folder & the user can see a list of notes in the folder
-- **Alternate Sequence:** 
-1. The user can also create subfolders to organize their notes further
+1. User navigates to "Create Folder" button 
+2. User click on "Create Folder" Button
+3. System displays a text box to name the folder 
+4. User names the folder
+5. System displays a list of note files that the user can add 
+- **Primary Postconditions:** The folder that was created contains note files that user wanted to add and is organized
+- **Alternate Sequence:**
+1. User chooses to add a subfolder within the folder
+2. System displays add a new folder button
+3. User clicks the button
+4. System displats a text box to name the folder
+5. System displays a list of note files that the user can add
 
-**11. Dark Mode (Gautam)** 
-- **Pre-condition:** User is viewing the app
-- **Trigger:** User wants to switch to dark mode
+
+**11. Dark Mode Function(Gautam)**
+- **Pre-condition*:** User is logged into the app 
+- **Trigger:** User wants to invert the colors and switch to "dark mode"
 - **Primary Sequence:**
-1. User clicks the "Dark Mode" button
-2. ...
-3. ...
-4. ...
-5. ...
-- **Primary Postconditions:** The app's theme changes to dark mode & the app's text and colors are inverted
-- **Alternate Sequence:** 
-1. The user can also switch back to light mode by clicking the "Dark Mode" button again
+1. User navigates to settings page 
+2. User click on "Switch to Dark Mode" (Moon symbol) button
+3. System inverts the colors of the background, text, and any other elements 
+- **Primary Postconditions:** The app is in "Dark Mode"
+- **Alternate Sequence:**
+1. User chooses not to switch to dark mode
+2. User clicks "Revert" button 
+3. System displays page with regular colors
 
 **12. Note Sharing (Steve)** 
 - **Pre-condition:** User has created a note
