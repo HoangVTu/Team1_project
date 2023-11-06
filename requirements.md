@@ -3,7 +3,7 @@
 1. Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
 2. Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
 3. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
-4. Highlight Text - Users can highlight text within a note
+4. Highlight Text - Users can highlight text within a note (Akhil)
 5. Create an Account - Allowing users to create an account to use the app (Hoang)
 6. Log in - Allowing users to log into their account to access the app (Hoang)
 7. Passwords Reset - Allowing the user to reset their password in the app (Hoang) 
