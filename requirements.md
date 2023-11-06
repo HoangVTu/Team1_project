@@ -11,9 +11,9 @@
 9. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
 10. File to Folder Organization - Allows user to organize each note to different folder or organize them by tags(Gautam)
 11. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
-12. requirement
-13. requirement
-14. requirement
+12. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
+13. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
+14. Collaboration - Allow users to collaborate on notes with other users (Steve)
 
 ## Non-functional Requirements
 1. The website should be responsive and functional on IOS and Macbooks
@@ -172,17 +172,17 @@
 1. ...
 
 **12. ... (Steve)** 
-- **Pre-condition:** ...
-- **Trigger:** ...
+- **Pre-condition:** User has created a note
+- **Trigger:** User wants to share the note with another user
 - **Primary Sequence:**
-1. ...
-2. ...
-3. ...
-4. ...
-5. ...
-- **Primary Postconditions:** ...
+1. The user selects the note they want to share.
+2. The user clicks the "Share" button.
+3. The user enters the email address of the user they want to share the note with.
+4. The user selects the desired access level (read or write) for the shared user.
+5. The user clicks the "Share" button.
+- **Primary Postconditions:** The shared user receives an email with a link to the note & can access the note with the specified access level
 - **Alternate Sequence:** 
-1. ...
+1. If the shared user does not have an account, they will be prompted to create one
 
 **13. ... (Steve)** 
 - **Pre-condition:** ...
