@@ -221,13 +221,30 @@
 - **Alternate Sequence:** 
 1. If there is a conflict between changes made by different users, a conflict resolution mechanism will be used to determine which change is accepted
 
-**16. Insipirational Qoutes (External API) (Akhil) - Milestone is once dashboard page is created**
+**16. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User navigation to dashboard
 - **Primary Sequence:**
 1. User navigates to dashboard
-2. System queries insipirational qoute website and displays qoute on dashboard
-3. User can choose to read the qoute as it will be displayed when they are navigating around
-- **Primary Postconditions:** Qoute is cleared from memory upon navigation away from dashboard page
+2. System queries insipirational quote website and displays quote on dashboard
+3. User can choose to read the quote as it will be displayed when they are navigating around
+- **Primary Postconditions:** Quote is cleared from memory upon navigation away from dashboard page
 - **Alternate Sequence:** 
-1. The user is not logged in and navigates to dashboard, system should not query api 
+1. The user is not logged in and navigates to dashboard, system should not query api
+2. 
+
+**17. Translate Function (Externa1 Google Translate API) (Gautam)**
+- **Pre-condition:** User is logged in to the application
+- **Trigger:** User starts adding notes to a note files
+- **Primary Sequence:**
+1. User navigates to Translate button 
+2. User clicks on translate button
+3. System displays a list of language they can convert the text into using API
+4. User selects a language
+5. System displays text into the language that was chosen
+- **Primary Postconditions:** The note is updated with a new language
+- **Alternate Sequence:** 
+1. The user chooses not to translate
+2. User clicks on "Revert Translation"
+3. System displays the text in the original language
+
