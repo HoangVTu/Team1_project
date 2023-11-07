@@ -14,7 +14,8 @@
 13. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
 14. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
 15. Collaboration - Allow users to collaborate on notes with other users (Steve)
-16. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+16. Inspirational Quotes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+17. Translate Function (Externa1 Google Translate API) - User can choose to translate text into any language (Gautam)
  
 ## Non-functional Requirements
 1. *The website should be responsive and functional on IOS and Macbooks
@@ -149,7 +150,7 @@
 3. The system displays a "try again" button and a "forgot password" button
 4. The user clicks on either one
 
-10. File to Folder Organization(Gautam)
+**10. File to Folder Organization(Gautam)**
 - **Pre-condition*:** User is logged into the app 
 - **Trigger:** User wants to organize a note to a specific folder
 - **Primary Sequence:**
@@ -216,7 +217,7 @@
 - **Alternate Sequence:** 
 1. If there is a conflict between changes made by different users, a conflict resolution mechanism will be used to determine which change is accepted
 
-**16. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
+**15. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User navigation to dashboard
 - **Primary Sequence:**
@@ -228,7 +229,7 @@
 1. The user is not logged in and navigates to dashboard, system should not query api
 2. 
 
-**17. Translate Function (Externa1 Google Translate API) (Gautam)**
+**16. Translate Function (Externa1 Google Translate API) (Gautam)**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User starts adding notes to a note files
 - **Primary Sequence:**
