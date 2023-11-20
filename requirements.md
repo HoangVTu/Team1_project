@@ -4,18 +4,17 @@
 2. *Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
 3. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
 4. Highlight Text - Users can highlight text within a note (Akhil)
-6. *Create an Account - Allowing users to create an account to use the app (Hoang)
-7. Log in - Allowing users to log into their account to access the app (Hoang)
-8. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
-9. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
-10. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
-11. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
-12. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
-13. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
-14. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
-15. Collaboration - Allow users to collaborate on notes with other users (Steve)
-16. Inspirational Quotes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
-17. Translate Function (Externa1 Google Translate API) - User can choose to translate text into any language (Gautam)
+5. *Create an Account - Allowing users to create an account to use the app (Hoang)
+6. Log in - Allowing users to log into their account to access the app (Hoang)
+7. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
+8. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
+9. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
+10. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
+11. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
+12. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
+13. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
+14. Collaboration - Allow users to collaborate on notes with other users (Steve)
+15. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
  
 ## Non-functional Requirements
 1. *The website should be responsive and functional on IOS and Macbooks
@@ -86,11 +85,10 @@
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Create Account" button
 - **Primary Sequence:**
-1. User nagivate to the app
-2. User selects the "Create an Account" button on the app 
-3. The user fills in their desired username and password and other information required
-4. User then click on the "Create" button
-5. The system will confirm the account create
+1. User selects the "Create an Account" button on the app 
+2. The user fills in their desired username and password and other information required
+3. User then click on the "Create" button
+4. The system will confirm the account create
 - **Primary Postconditions:** The System will save the account and tell the user whether it was a success or not
 - **Alternate Sequence:** 
 1. User did not enter an email for the account
@@ -125,10 +123,9 @@
 - **Trigger:** User wants to search for a specific note 
 - **Primary Sequence:** 
 1. User navigates to the Search Bar
-2. The user clicks on the Search Bar
-3. The user types in the title/tag associated with the note
-4. The user clicks on the enter button 
-5. The system displays a list of note pages related to the keyword/tag
+2. The user types in the title/tag associated with the note
+3. The user clicks on the enter button 
+4. The system displays a list of note pages related to the keyword/tag
 - **Primary Postconditions:** User is able to choose from the given list of notes 
 - **Alternate Sequence:**
 1. The system does not display a list of notes due to the keyword/tag not matching 
@@ -227,7 +224,6 @@
 - **Primary Postconditions:** Quote is cleared from memory upon navigation away from dashboard page
 - **Alternate Sequence:** 
 1. The user is not logged in and navigates to dashboard, system should not query api
-2. 
 
 **16. Translate Function (Externa1 Google Translate API) (Gautam)**
 - **Pre-condition:** User is logged in to the application
