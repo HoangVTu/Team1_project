@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard'; 
 
 function App() {
-  const [quote, setQuote] = useState('');
-  const [author, setAuthor] = useState('');
-
-  async function fetchQuote() {
-    try {
-      const response = await fetch('https://zenquotes.io/api/random');
-      const data = await response.json();
-      if (data.length > 0) {
-        setQuote(data[0].q);
-        setAuthor(data[0].a);
-      }
-    } catch (error) {
-      console.error("Error fetching quote:", error);
-    }
-  }
-
-  useEffect(() => {
-    fetchQuote();
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Inspirational Quote</h1>
-        <p>{quote}</p>
-        <em>- {author}</em>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} /> 
+        {/* <Route path="/dummy" element={<Dummy />} /> You guys can copy this format for every new page you build and import like above also make pages within pages subdirectory  */}
+      </Routes>
+    </BrowserRouter>
   );
 }
-
 
 export default App;
