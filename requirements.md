@@ -1,24 +1,23 @@
 # Requirements 
 ## Functional Requirements
 1. *Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
-2. *Edit Existing Notes - Users can edit the text of their existing notes (Akhil)
-3. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
-4. Highlight Text - Users can highlight text within a note (Akhil)
-5. *Create an Account - Allowing users to create an account to use the app (Hoang)
-6. Log in - Allowing users to log into their account to access the app (Hoang)
-7. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
-8. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
-9. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
-10. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
-11. Dark Mode - User can switch to dark mode(inverted colors) based on preference(Gautam)
-12. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
-13. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
-14. Collaboration - Allow users to collaborate on notes with other users (Steve)
-15. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+2. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
+3. Highlight Text - Users can highlight text within a note (Akhil)
+4. *Create an Account - Allowing users to create an account to use the app (Hoang)
+5. Log in - Allowing users to log into their account to access the app (Hoang)
+6. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
+7. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
+8. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
+9. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
+10. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
+11. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
+12. Collaboration - Allow users to collaborate on notes with other users (Steve)
+13. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+14. Translate Function (Externa1 Google Translate API) (Gautam)
  
 ## Non-functional Requirements
-1. *The website should be responsive and functional on IOS and Macbooks
-2. All webpages should load within 3 seconds - will be tested manually on a Macbook
+1. *The website should be operate on all exist operation systems.
+2. The website should be able to handle more than 10 users.
 
 ## Use Cases 
 **1. Create and Save New Notes (Akhil) - Milestone is one week after UI is built out**
@@ -35,21 +34,7 @@
 1. The user does not enter any text and clicks "Save"
 2. The system tells users they can not make an empty note
 
-**2. Edit Existing Notes (Akhil) - Milestone is one week after UI is built out**
-- **Pre-condition:** User is logged in and has saved notes
-- **Trigger:** User clicks the edit button on a note
-- **Primary Sequence:**
-1. User clicks on the "edit" button on a note
-2. The user is taken to that note page and can edit that note
-3. The user edits the text
-4. User clicks on the "Save" button
-5. System saves and confirms that the note is saved to the user
-- **Primary Postconditions:** A new note is created and saved to the user's account
-- **Alternate Sequence:** 
-1. The user does not make any changes and clicks "Save"
-2. System exits and tells user no changes were made
-
-**3. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
+**2. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in and has saved notes
 - **Trigger:** User clicks the reminder button in a note
 - **Primary Sequence:**
@@ -65,7 +50,7 @@
 1. The user does not select a date and clicks "Save"
 2. System alerts users that they have to select the date and time for the reminder
 
-**4. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
+**3. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in to the Note Editor State
 - **Trigger:** User wants to highlight text within note
 - **Primary Sequence:**
@@ -81,7 +66,7 @@
 2. System alerts users they have to select text to highlight
 
 
-**5. Create an Account (Hoang)** [account](images/Sign_Up.jpg)
+**4. Create an Account (Hoang)** [account](images/Sign_Up.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Create Account" button
 - **Primary Sequence:**
@@ -94,7 +79,7 @@
 1. User did not enter an email for the account
 2. The system will alert the user to enter the missing field for information
 
-**6. Log in (Hoang)** [log_in](images/Login_Page.jpg)
+**5. Log in (Hoang)** [log_in](images/Login_Page.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Log In" button
 - **Primary Sequence:**
@@ -106,7 +91,7 @@
 - **Alternate Sequence:** 
 1. The user did not enter the correct username or password
 
-**7. Log Out (Hoang)** [log_out](images/Log_Out.jpg)
+**6. Log Out (Hoang)** [log_out](images/Log_Out.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User finish logging in and chooses the option "Log Out"
 - **Primary Sequence:**
@@ -118,7 +103,7 @@
 - **Alternate Sequence:** 
 1. The user did not successfully log into their account
 
-**8. Search Function(Gautam)**
+**7. Search Function(Gautam)**
 - **Pre-condition** User is logged into the app
 - **Trigger:** User wants to search for a specific note 
 - **Primary Sequence:** 
@@ -132,7 +117,7 @@
 2. The system displays a message of "No notes were found"
 3. The user can exit or try again with a new keyword
 
-**9. Lock File Function(Gautam)**
+**8. Lock File Function(Gautam)**
 - **Pre-condition*:** User is logged into the app and is on a specific note page
 - **Trigger:** User wants to lock a note file for privacy
 - **Primary Sequence:**
@@ -147,7 +132,7 @@
 3. The system displays a "try again" button and a "forgot password" button
 4. The user clicks on either one
 
-**10. File to Folder Organization(Gautam)**
+**9. File to Folder Organization(Gautam)**
 - **Pre-condition*:** User is logged into the app 
 - **Trigger:** User wants to organize a note to a specific folder
 - **Primary Sequence:**
@@ -164,21 +149,7 @@
 4. System displays a text box to name the folder
 5. The system displays a list of note files that the user can add
 
-
-**11. Dark Mode Function(Gautam)**
-- **Pre-condition*:** User is logged into the app 
-- **Trigger:** User wants to invert the colors and switch to "dark mode"
-- **Primary Sequence:**
-1. The user navigates to the settings page 
-2. The user clicks on the "Switch to Dark Mode" (Moon symbol) button
-3. System inverts the colors of the background, text, and any other elements 
-- **Primary Postconditions:** The app is in "Dark Mode"
-- **Alternate Sequence:**
-1. User chooses not to switch to dark mode
-2. User clicks "Revert" button 
-3. The system displays a page with regular colors
-
-**12. Note Sharing (Steve)** 
+**10. Note Sharing (Steve)** 
 - **Pre-condition:** User has created a note
 - **Trigger:** User wants to share the note with another user
 - **Primary Sequence:**
@@ -191,7 +162,7 @@
 - **Alternate Sequence:** 
 1. If the shared user does not have an account, they will be prompted to create one
 
-**13. Note Export (Steve)** 
+**11. Note Export (Steve)** 
 - **Pre-condition:** User has created a note
 - **Trigger:** User wants to export the note to a different format
 - **Primary Sequence:**
@@ -203,7 +174,7 @@
 - **Alternate Sequence:** 
 1. If the user does not have the required software to open the exported file, they will be prompted to download it
 
-**14. Collaboration (Steve)** 
+**12. Collaboration (Steve)** 
 - **Pre-condition:** Multiple users have access to a note
 - **Trigger:** One user starts editing the note
 - **Primary Sequence:**
@@ -214,7 +185,7 @@
 - **Alternate Sequence:** 
 1. If there is a conflict between changes made by different users, a conflict resolution mechanism will be used to determine which change is accepted
 
-**15. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
+**13. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User navigation to dashboard
 - **Primary Sequence:**
@@ -225,7 +196,7 @@
 - **Alternate Sequence:** 
 1. The user is not logged in and navigates to dashboard, system should not query api
 
-**16. Translate Function (Externa1 Google Translate API) (Gautam)**
+**14. Translate Function (Externa1 Google Translate API) (Gautam)**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User starts adding notes to a note files
 - **Primary Sequence:**

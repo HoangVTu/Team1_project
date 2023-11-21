@@ -12,3 +12,10 @@
 - **Gautam, Hoang, Steve, Akhil attended**
 - **Group discuss about what requirement should be done first for the milestone 2**
 - **Summarize: Everyone give their opinion that each team members need to finish 2 requirement for milestone 2. Meeting ended after 30 mins.**
+
+## 2023-11-19 at 7:30 PM
+- **Gautam, Hoang, Akhil attended**
+
+## 2023-11-20 at 5:50 PM
+- **Gautam, Hoang attended**
+
