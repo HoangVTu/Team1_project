@@ -6,11 +6,13 @@ function Dashboard() {
   
     async function fetchQuote() {
       try {
-        const response = await fetch('https://zenquotes.io/api/random');
-        const data = await response.json();
-        if (data.length > 0) {
-          setQuote(data[0].q);
-          setAuthor(data[0].a);
+        const response = await fetch('https://type.fit/api/quotes');
+        const quotes = await response.json();
+        if (quotes.length > 0) {
+          const randomIndex = Math.floor(Math.random() * quotes.length);
+          const randomQuote = quotes[randomIndex];
+          setQuote(randomQuote.text);
+          setAuthor(randomQuote.author);
         }
       } catch (error) {
         console.error("Error fetching quote:", error);
@@ -26,7 +28,7 @@ function Dashboard() {
         <header className="App-header">
           <h1>Inspirational Quote</h1>
           <p>{quote}</p>
-          <em>- {author}</em>
+          <em>- {author ? author : "Unknown"}</em>
         </header>
       </div>
     );
