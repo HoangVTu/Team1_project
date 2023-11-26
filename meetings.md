@@ -15,6 +15,8 @@
 
 ## 2023-11-19 at 7:30 PM
 - **Gautam, Hoang, Akhil attended**
+- **Everyone give opinion on what is needed to be done for the next milestone.**
+- **Summarize: all members present in the meeting discussed what problem they run into in the project and where they are at on their part.** 
 
 ## 2023-11-20 at 5:50 PM
 - **Gautam, Hoang, Akhil attended**
@@ -24,4 +26,3 @@
 - **Gautam will continue to work on his two requirements**
 - **Hoang will also continue to work on his requirements**
 - **Summarize: Just checked in on each other's progress and answered any questions that we had**
-
