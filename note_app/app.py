@@ -45,6 +45,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
     print("handle_notes function called")
@@ -116,8 +120,8 @@ def login():
 
     return render_template('login.html', form=form)
 
-@app.route('/logout')
-def logout():
+@app.route('/log_out')
+def log_out():
     session.pop('username', None)
     return redirect(url_for('index'))
 
