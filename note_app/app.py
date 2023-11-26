@@ -1,14 +1,19 @@
-from flask import Flask, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, HiddenField
+from wtforms import StringField, TextAreaField, HiddenField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 db = SQLAlchemy(app)
+
+users = [
+    {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
+    {'username': 'user2', 'email': 'user2@example.com', 'password': 'password2'}
+]
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +27,23 @@ class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     highlights = HiddenField()  
+    
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
 
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
@@ -56,5 +78,55 @@ def handle_notes():
 def test():
     return 'Test successful!'
 
+@app.route('/register_acc', methods=['POST', 'GET'])
+def register_acc():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+
+        if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+            return "Username or email already exists. Please choose different credentials."
+
+        new_user = User(username=username, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return "Registration successful!"
+
+    return render_template('register.html', form=form)
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+
+        user = User.query.filter_by(username=username, password=password).first()
+
+        if user:
+            session['username'] = username
+            return redirect(url_for('dashboard'))
+
+        return "Invalid login credentials. Please try again."
+
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return f"Welcome, {session['username']}! This is your dashboard. <a href='/logout'>Logout</a>"
+    else:
+        return redirect(url_for('login'))
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run (debug = True)
