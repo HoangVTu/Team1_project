@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard'; 
+import Notes from './pages/Notes'; 
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} /> 
+        <Route path="/notes" element={<Notes />} />
         {/* <Route path="/dummy" element={<Dummy />} /> You guys can copy this format for every new page you build and import like above also make pages within pages subdirectory  */}
       </Routes>
     </BrowserRouter>
