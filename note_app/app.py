@@ -94,13 +94,15 @@ def register_acc():
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
             return "Username or email already exists. Please choose different credentials."
 
-        new_user = User(username=username, email=email, password=password)
+        new_user = User(username=username, email=email, password=password)  
         db.session.add(new_user)
         db.session.commit()
 
-        return "Registration successful!"
+        session['username'] = username  
+        return redirect(url_for('dashboard'))  
 
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -131,6 +133,11 @@ def dashboard():
         return f"Welcome, {session['username']}! This is your dashboard. <a href='/logout'>Logout</a>"
     else:
         return redirect(url_for('login'))
+
+with app.app_context():
+    db.create_all()
+
+
 
 if __name__ == '__main__':
     app.run (debug = True)
