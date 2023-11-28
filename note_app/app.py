@@ -36,6 +36,22 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    
+class Email(db.Model):
+    # Email's ID:
+    id = db.Column(db.Integer, primary_key=True)
+    # Email's Sender:
+    sender = db.Column(db.String(120), nullable=False)
+    # Email's Recipient:
+    recipient = db.Column(db.String(120), nullable=False)
+    # Email's Subject:
+    subject = db.Column(db.String(120), nullable=False)
+    # Email's Body:
+    body = db.Column(db.Text, nullable=False)
+
+    # Function that returns 1 string every time creating 1 new Email element in Database:
+    def __repr__(self):
+        return f'<Email {self.id}: {self.name}>'
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
