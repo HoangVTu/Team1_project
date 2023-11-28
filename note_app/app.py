@@ -96,12 +96,14 @@ def register_acc():
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
             return "Username or email already exists. Please choose different credentials."
 
+
         new_user = User(username=username, email=email, password=password)  
+        # print(new_user)
         db.session.add(new_user)
         db.session.commit()
 
         session['username'] = username  
-        return redirect(url_for('dashboard'))  
+        return redirect(url_for('/dashboard'))  
 
     return render_template('register.html', form=form)
 
