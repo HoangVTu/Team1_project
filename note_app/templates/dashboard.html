@@ -52,5 +52,32 @@
         <p id="quote">Loading...</p>
         <em id="author"></em>
     </div>
+    <div class="container">
+        <button onclick="location.href='/create_note'">Create Note</button>
+    </div>
+
+    <div class="container notes-container">
+        <h2>Your Notes</h2>
+        <div id="notes-area">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            fetch('/api/notes') 
+                .then(response => response.json())
+                .then(notes => {
+                    const notesArea = document.getElementById('notes-area');
+                    notes.forEach(note => {
+                        const noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.innerHTML = `<h3>${note.title}</h3><p>${note.content}</p>`;
+                        notesArea.appendChild(noteDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching notes:', error));
+        });
+    </script>
 </body>
 </html>

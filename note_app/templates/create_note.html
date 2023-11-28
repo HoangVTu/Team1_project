@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Note</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            width: 50%;
+            background-color: #f2f2f2;
+            padding: 16px;
+            border: 1px solid black;
+            border-radius: 8px;
+            margin: 8px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        .highlighted {
+        background-color: yellow;
+    }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="/create_note" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="4" required></textarea>
+            </div>
+            <input type="hidden" id="highlights" name="highlights">
+            <div class="form-group">
+                <label for="reminder">Reminder (optional)</label>
+                <input type="datetime-local" id="reminder" name="reminder">
+            </div>
+
+            <button type="button" onclick="highlightText()">Toggle Highlight</button>
+
+            <script>
+                function highlightText() {
+                    const selectedText = getSelectedText();
+                    if (selectedText) {
+                        document.getElementById('highlights').value += selectedText + ";";
+                    }
+                }
+            </script>
+            <button type="submit">Create Note</button>
+        </form>
+    </div>
+</body>
+</html>

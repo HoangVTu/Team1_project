@@ -22,6 +22,8 @@ class Note(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     highlights = db.Column(db.String(1000))  
     reminder = db.Column(db.DateTime)
+    highlighted_text = db.Column(db.String(1000))
+    reminder = db.Column(db.DateTime, nullable=True)
 
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -130,12 +132,37 @@ def log_out():
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
-        return f"Welcome, {session['username']}! This is your dashboard. <a href='/logout'>Logout</a>"
+        return render_template('dashboard.html', username=session['username'])
     else:
         return redirect(url_for('login'))
 
+@app.route('/create_note', methods=['GET', 'POST'])
+def create_note():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        highlights = request.form.get('highlights')
+        reminder_str = request.form.get('reminder')
+
+        reminder = None
+        if reminder_str:
+            try:
+                reminder = datetime.strptime(reminder_str, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                pass  
+
+        new_note = Note(title=title, content=content, highlighted_text=highlights, reminder=reminder)
+        db.session.add(new_note)
+        db.session.commit()
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('create_note.html')
+
+
 with app.app_context():
-    db.create_all()
+    db.drop_all()  
+    db.create_all() 
 
 
 
