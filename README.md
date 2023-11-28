@@ -13,7 +13,12 @@ To install MemoMate, follow these steps:
 2. Enter the react project: cd note_app
 3. Install libraries:
 - pip install flask
-- pip install flask_wtf
+- pip install Flask-WTF
+- pip install Flask-SQLAlchemy
+- pip install WTForms
+- pip install python-dotenv
+- pip install Flask-Bcrypt
+
      
 
 ## Usage
