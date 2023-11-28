@@ -26,3 +26,12 @@
 - **Gautam will continue to work on his two requirements**
 - **Hoang will also continue to work on his requirements**
 - **Summarize: Just checked in on each other's progress and answered any questions that we had**
+
+## 2023-11-25 at 6:00 PM
+- **Gautam, Hoang, Steve attended**
+- **Discussed everyone's progress on requirements**
+- **Discussed possibility of using points for a revision of milestone**
+- **Team Update**
+- **Hoang is having issues connecting his requirements to the website**
+- **All will continue to work on requirements**
+- **Summarize: All team members understand the need to complete their requirements before Milestone 2**
