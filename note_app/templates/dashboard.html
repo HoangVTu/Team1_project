@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 66.6%;
+            background-color: #f2f2f2;
+            padding: 16px;
+            border: 1px solid black;
+            border-radius: 8px;
+            margin: 8px;
+        }
+        .quote {
+            text-align: center;
+        }
+        .quote p {
+            font-size: 18px;
+        }
+        .quote em {
+            font-style: italic;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://type.fit/api/quotes')
+                .then(response => response.json())
+                .then(quotes => {
+                    if (quotes.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * quotes.length);
+                        const randomQuote = quotes[randomIndex];
+                        document.getElementById('quote').textContent = randomQuote.text;
+                        document.getElementById('author').textContent = randomQuote.author || 'Unknown';
+                    }
+                })
+                .catch(error => console.error('Error fetching quote:', error));
+        });
+    </script>
+</head>
+<body>
+    <div class="container quote">
+        <h1 class="title">Inspirational Quote</h1>
+        <p id="quote">Loading...</p>
+        <em id="author"></em>
+    </div>
+    <div class="container">
+        <button onclick="location.href='/create_note'">Create Note</button>
+    </div>
+
+    <div class="container notes-container">
+        <h2>Your Notes</h2>
+        <div id="notes-area">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            fetch('/api/notes') 
+                .then(response => response.json())
+                .then(notes => {
+                    const notesArea = document.getElementById('notes-area');
+                    notes.forEach(note => {
+                        const noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.innerHTML = `<h3>${note.title}</h3><p>${note.content}</p>`;
+                        notesArea.appendChild(noteDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching notes:', error));
+        });
+    </script>
+</body>
+</html>
