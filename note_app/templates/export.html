@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Application</title>
+</head>
+<body>
+
+<h1>Note Editor</h1>
+
+<!-- Note submission form -->
+<form method="post" action="/">
+    <textarea name="content" rows="10" cols="30">{{ note.content }}</textarea><br>
+    <input type="submit" value="Save Note">
+</form>
+
+<!-- Export note button -->
+<a href="/export" download>Export Note as Text File</a>
+
+</body>
+</html>
