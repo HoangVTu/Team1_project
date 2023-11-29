@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note App</title>
+    <!-- Add any additional head elements like CSS files here -->
+</head>
+<body>
+
+    <h1>Your Note</h1>
+    
+    <!-- The form for submitting a note -->
+    <form method="post">
+        <textarea name="content" rows="4" cols="50">{{ note.content if note else '' }}</textarea>
+        <br>
+        <input type="submit" value="Save Note">
+    </form>
+
+</body>
+</html>

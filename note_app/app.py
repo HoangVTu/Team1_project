@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
+from flask_socketio import SocketIO, join_room, leave_room, send, emit
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
@@ -9,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 db = SQLAlchemy(app)
+socketio = SocketIO(app)
 
 users = [
     {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
@@ -24,6 +26,105 @@ class Note(db.Model):
     reminder = db.Column(db.DateTime)
     highlighted_text = db.Column(db.String(1000))
     reminder = db.Column(db.DateTime, nullable=True)
+    
+    def __repr__(self):
+        return f"Note('{self.id}')"
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        note_content = request.form.get('content')
+        note = Note.query.first()
+        
+        if note:
+            note.content = note_content
+        else:
+            new_note = Note(content=note_content)
+            db.session.add(new_note)
+        
+        db.session.commit()
+        
+        return redirect(url_for('index'))
+    
+    note = Note.query.first()
+    return render_template('index.html', note=note)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
+current_note_content = ""
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    global current_note_content
+    if request.method == 'POST':
+        # Update the note content when the form is submitted.
+        current_note_content = request.form['content']
+    
+    return render_template('index.html', note={'content': current_note_content})
+
+@app.route('/export')
+def export_note():
+    global current_note_content
+    # Make sure there is content to export.
+    if not current_note_content.strip():
+        return "No content to export", 404
+
+    # Set the headers and filename for the download prompt.
+    headers = {
+        'Content-Disposition': 'attachment; filename=note.txt',
+        'Content-Type': 'text/plain'
+    }
+    
+    # Return the note as a downloadable text file.
+    return Response(current_note_content, headers=headers)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
+# Dictionary to store the contents of the notes
+notes_content = {}
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@socketio.on('connect')
+def on_connect():
+    print('User connected')
+
+@socketio.on('disconnect')
+def on_disconnect():
+    print('User disconnected')
+
+@socketio.on('join')
+def on_join(data):
+    room = data['room']
+    join_room(room)
+    # Send existing note content when user joins the room
+    if room in notes_content:
+        emit('note content', {'content': notes_content[room]}, room=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    room = data['room']
+    leave_room(room)
+
+@socketio.on('edit note')
+def handle_edit_note_event(data):
+    room = data['room']
+    content = data['content']
+    # Update the note content in the dictionary
+    notes_content[room] = content
+    # Broadcast the updated content to all users in the room
+    emit('note content', {'content': content}, room=room, include_self=False)
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
 
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
