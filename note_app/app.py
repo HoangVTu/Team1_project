@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
-from flask_socketio import SocketIO, join_room, leave_room, send, emit
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
@@ -10,7 +9,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 db = SQLAlchemy(app)
-socketio = SocketIO(app)
 
 users = [
     {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
@@ -188,61 +186,9 @@ def unstar_note(note_id):
         return jsonify({'message': 'Note unstarred'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
-@app.route('/export')
-def export_note():
-    global current_note_content
-    # Make sure there is content to export.
-    if not current_note_content.strip():
-        return "No content to export", 404
-
-    # Set the headers and filename for the download prompt.
-    headers = {
-        'Content-Disposition': 'attachment; filename=note.txt',
-        'Content-Type': 'text/plain'
-    }
-    
-    # Return the note as a downloadable text file.
-    return Response(current_note_content, headers=headers)
-
-
-@socketio.on('connect')
-def on_connect():
-    print('User connected')
-
-@socketio.on('disconnect')
-def on_disconnect():
-    print('User disconnected')
-
-@socketio.on('join')
-def on_join(data):
-    room = data['room']
-    join_room(room)
-    # Send existing note content when user joins the room
-    if room in notes_content:
-        emit('note content', {'content': notes_content[room]}, room=room)
-
-@socketio.on('leave')
-def on_leave(data):
-    room = data['room']
-    leave_room(room)
-
-@socketio.on('edit note')
-def handle_edit_note_event(data):
-    room = data['room']
-    content = data['content']
-    # Update the note content in the dictionary
-    notes_content[room] = content
-    # Broadcast the updated content to all users in the room
-    emit('note content', {'content': content}, room=room, include_self=False)
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
-
-
 with app.app_context():
     db.drop_all()  
     db.create_all() 
-
 
 
 if __name__ == '__main__':
