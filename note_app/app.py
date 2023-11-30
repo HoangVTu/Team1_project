@@ -47,9 +47,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
@@ -84,7 +81,7 @@ def handle_notes():
 def test():
     return 'Test successful!'
 
-@app.route('/register_acc', methods=['POST', 'GET'])
+@app.route('/', methods=['POST', 'GET'])
 def register_acc():
     form = RegistrationForm()
 
