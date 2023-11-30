@@ -47,10 +47,10 @@
    
 **3. Delete Note (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in to the dashboard
-- **Trigger:** User wants to delete a note
+- **Trigger:** User click the delete note button on a note
 - **Primary Sequence:**
 1. User navigates to dashboard
-2. User clicks delete button
+2. User clicks "delete" button
 4. System removes note from database and from viewable screen
 - **Primary Postconditions:** Selected note is no longer in database
 - **Alternate Sequence:** 
