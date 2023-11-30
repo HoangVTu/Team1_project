@@ -2,13 +2,13 @@
 
 ## Functionality:
 **The following feature are implemented in MemoMate:**
-- **1. Create and Save New Notes**
-- **2. Starred Notes**
-- **3. Delete Notes**
-- **4. Create an Account**
-- **5. Log in**
-- **6. Log Out**
-- **7. API Implementation**
+- **1. Create and Save New Notes** - Akhil
+- **2. Starred Notes** - Akhil
+- **3. Delete Notes** - Akhil
+- **4. Create an Account** - Hoang
+- **5. Log in** - Hoang
+- **6. Log Out** - Hoang
+- **7. API Implementation** - Akhil
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
