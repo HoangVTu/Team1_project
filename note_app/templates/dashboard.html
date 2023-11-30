@@ -29,6 +29,19 @@
         .quote em {
             font-style: italic;
         }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -54,6 +67,7 @@
     </div>
     <div class="container">
         <button onclick="location.href='/create_note'">Create Note</button>
+        <button onclick="openStarredNotesPopup()">View Starred Notes</button>
         <button onclick="location.href='/log_out'" style="float: right;">Log Out</button>
     </div>
     
@@ -62,6 +76,12 @@
         <h2>Your Notes</h2>
         <div id="notes-area">
         </div>
+    </div>
+
+    <div id="starredNotesPopup" class="popup">
+        <h2>Starred Notes</h2>
+        <div id="starred-notes-area"></div>
+        <button onclick="closeStarredNotesPopup()">Close</button>
     </div>
 
     <script>
@@ -77,6 +97,9 @@
                             <h3>${note.title}</h3>
                             <p>${note.content}</p>
                             <button onclick="deleteNote(${note.id}, this)">Delete</button>
+                            <button onclick="toggleStar(${note.id}, ${note.is_starred}, this)">
+                                ${note.is_starred ? 'Unstar' : 'Star'}
+                            </button>
                         `;
                         notesArea.appendChild(noteDiv);
                     });
@@ -91,6 +114,29 @@
                 })
                 .catch(error => console.error('Error deleting note:', error));
         }
+        function openStarredNotesPopup() {
+            document.getElementById('starredNotesPopup').style.display = 'block';
+        }
+
+        function closeStarredNotesPopup() {
+            document.getElementById('starredNotesPopup').style.display = 'none';
+        }
+        function toggleStar(noteId, isStarred, button) {
+            const url = isStarred ? '/unstar_note/' + noteId : '/star_note/' + noteId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(() => {
+                    button.textContent = isStarred ? 'Star' : 'Unstar';
+                    button.onclick = () => toggleStar(noteId, !isStarred, button);
+                })
+                .catch(error => console.error('Error toggling star:', error));
+        }
+
+
     </script>
 </body>
 </html>

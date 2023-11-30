@@ -24,6 +24,7 @@ class Note(db.Model):
     reminder = db.Column(db.DateTime)
     highlighted_text = db.Column(db.String(1000))
     reminder = db.Column(db.DateTime, nullable=True)
+    is_starred = db.Column(db.Boolean, default=False)
 
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -167,7 +168,23 @@ def delete_note(note_id):
         return jsonify({'message': 'Note deleted'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
+@app.route('/star_note/<int:note_id>', methods=['POST'])
+def star_note(note_id):
+    note = Note.query.get(note_id)
+    if note:
+        note.is_starred = True
+        db.session.commit()
+        return jsonify({'message': 'Note starred'}), 200
+    return jsonify({'message': 'Note not found'}), 404
 
+@app.route('/unstar_note/<int:note_id>', methods=['POST'])
+def unstar_note(note_id):
+    note = Note.query.get(note_id)
+    if note:
+        note.is_starred = False
+        db.session.commit()
+        return jsonify({'message': 'Note unstarred'}), 200
+    return jsonify({'message': 'Note not found'}), 404
 
 
 with app.app_context():
