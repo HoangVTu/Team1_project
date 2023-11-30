@@ -28,6 +28,7 @@ To install MemoMate, follow these steps:
 - pip install WTForms
 - pip install python-dotenv
 - pip install Flask-Bcrypt
+- pip install flask-socketio
      
 ## Usage
 Run Project: python app.py
