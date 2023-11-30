@@ -1,8 +1,8 @@
 # Requirements 
 ## Functional Requirements
 1. *Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
-2. Note Reminders - Users can get alerted to go back to a specific note; this will show up on their note page (Akhil)
-3. Highlight Text - Users can highlight text within a note (Akhil)
+2. Starred Notes - Users can star notes to have them display on a different page  (Akhil)
+3. Delete Notes  - Users can delete written notes (Akhil)
 4. *Create an Account - Allowing users to create an account to use the app (Hoang)
 5. Log in - Allowing users to log into their account to access the app (Hoang)
 6. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
@@ -34,36 +34,27 @@
 1. The user does not enter any text and clicks "Save"
 2. The system tells users they can not make an empty note
 
-**2. Note Reminders (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
-- **Pre-condition:** User is logged in and has saved notes
-- **Trigger:** User clicks the reminder button in a note
+**2. Starred Notes (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
+- **Pre-condition:** User is logged in and has notes
+- **Trigger:** User clicks the starred button on a note
 - **Primary Sequence:**
 1. User navigates to the notes dashboard
-2. The user clicks on the note they want to set a reminder for
-3. The user clicks "Set Reminder" Button
-4. The user selects the date and time they want a reminder for
-5. User clicks on the "Save" button
-6. The system saves the reminder and tells the user that the reminder has been set
-7. The system will notify the user on top of the dashboard to revisit the note when the date and time arrive
-- **Primary Postconditions:** User is alerted when the time for reminder comes
+2. The user clicks "Star" checkbox
+6. The system will render the starred note on an important note page
+- **Primary Postconditions:** User is able to see the starred note on an important page
 - **Alternate Sequence:** 
-1. The user does not select a date and clicks "Save"
-2. System alerts users that they have to select the date and time for the reminder
-
-**3. Highlight Text (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
-- **Pre-condition:** User is logged in to the Note Editor State
-- **Trigger:** User wants to highlight text within note
+1. n/a
+   
+**3. Delete Note (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
+- **Pre-condition:** User is logged in to the dashboard
+- **Trigger:** User wants to delete a note
 - **Primary Sequence:**
-1. User navigates to notes, edit or create page
-2. User selects text to highlight
-3. User clicks "Highlight" Button
-4. System applies highlight to selected text
-5. User clicks on the "Save" button
-6. The system saves the text and tells the user a message based on whether the user was in edit or create state
-- **Primary Postconditions:** Selected text is highlighted in user's note
+1. User navigates to dashboard
+2. User clicks delete button
+4. System removes note from database and from viewable screen
+- **Primary Postconditions:** Selected note is no longer in database
 - **Alternate Sequence:** 
-1. The user does not select any text and clicks on the "Highlight" Button
-2. System alerts users they have to select text to highlight
+1. n/a
 
 
 **4. Create an Account (Hoang)** [account](images/Sign_Up.jpg)
