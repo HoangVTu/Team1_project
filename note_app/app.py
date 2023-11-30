@@ -158,10 +158,15 @@ def create_note():
 
     return render_template('create_note.html')
 
-# @app.route('/log_out', endpoint='log_out_1')
-# def log_out():
-#     session.pop('username', None)  
-#     return redirect(url_for('login')) 
+@app.route('/delete_note/<int:note_id>', methods=['DELETE'])
+def delete_note(note_id):
+    note = Note.query.get(note_id)
+    if note:
+        db.session.delete(note)
+        db.session.commit()
+        return jsonify({'message': 'Note deleted'}), 200
+    return jsonify({'message': 'Note not found'}), 404
+
 
 
 
