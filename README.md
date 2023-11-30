@@ -1,4 +1,13 @@
-# Team1_project
+# Team1_project --- MemoMate
+
+## Functionality:
+**The following feature are implemented in MemoMate:**
+**1. Create and Save New Notes**
+**2. Starred Notes**
+**3. Delete Notes**
+**4. Create an Account**
+**5. Log in**
+**6. Log Out**
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
@@ -18,9 +27,7 @@ To install MemoMate, follow these steps:
 - pip install WTForms
 - pip install python-dotenv
 - pip install Flask-Bcrypt
-
      
-
 ## Usage
 Run Project: python app.py
    

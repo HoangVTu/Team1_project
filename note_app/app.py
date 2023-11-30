@@ -127,7 +127,7 @@ def login():
 @app.route('/log_out')
 def log_out():
     session.pop('username', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 @app.route('/dashboard')
 def dashboard():

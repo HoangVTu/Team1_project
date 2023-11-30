@@ -2,7 +2,7 @@
 ## Functional Requirements
 1. *Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
 2. Starred Notes - Users can star notes to have them display on a different page  (Akhil)
-3. Delete Notes  - Users can delete written notes (Akhil)
+3. *Delete Notes  - Users can delete written notes (Akhil)
 4. *Create an Account - Allowing users to create an account to use the app (Hoang)
 5. Log in - Allowing users to log into their account to access the app (Hoang)
 6. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
@@ -43,7 +43,7 @@
 6. The system will render the starred note on an important note page
 - **Primary Postconditions:** User is able to see the starred note on an important page
 - **Alternate Sequence:** 
-1. n/a
+1. The user did not select the Star checkbox
    
 **3. Delete Note (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in to the dashboard
@@ -54,7 +54,7 @@
 4. System removes note from database and from viewable screen
 - **Primary Postconditions:** Selected note is no longer in database
 - **Alternate Sequence:** 
-1. n/a
+1. The user did not click on delete button
 
 
 **4. Create an Account (Hoang)** [account](images/Sign_Up.jpg)
