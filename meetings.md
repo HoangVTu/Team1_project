@@ -35,3 +35,10 @@
 - **Hoang is having issues connecting his requirements to the website**
 - **All will continue to work on requirements**
 - **Summarize: All team members understand the need to complete their requirements before Milestone 2**
+
+## 2023-11-29 at 8:30 PM
+- **Gautam, Hoang, Akhil attended**
+- **Discussed about milestone 3 assignment**
+- **Team Update**
+- **Akhil fix the errors in the project code**
+- **Summarize: All team members continue to doing their requirement and pushing onto github their requirement**
