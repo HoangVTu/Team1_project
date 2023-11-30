@@ -66,7 +66,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
             fetch('/api/notes') 
                 .then(response => response.json())
                 .then(notes => {
@@ -74,12 +73,24 @@
                     notes.forEach(note => {
                         const noteDiv = document.createElement('div');
                         noteDiv.className = 'note';
-                        noteDiv.innerHTML = `<h3>${note.title}</h3><p>${note.content}</p>`;
+                        noteDiv.innerHTML = `
+                            <h3>${note.title}</h3>
+                            <p>${note.content}</p>
+                            <button onclick="deleteNote(${note.id}, this)">Delete</button>
+                        `;
                         notesArea.appendChild(noteDiv);
                     });
                 })
                 .catch(error => console.error('Error fetching notes:', error));
         });
+    
+        function deleteNote(noteId, button) {
+            fetch('/delete_note/' + noteId, { method: 'DELETE' })
+                .then(() => {
+                    button.parentElement.remove();
+                })
+                .catch(error => console.error('Error deleting note:', error));
+        }
     </script>
 </body>
 </html>
