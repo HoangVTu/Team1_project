@@ -1,64 +1,45 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
-from flask_socketio import SocketIO, join_room, leave_room, emit
+from flask_socketio import SocketIO, join_room, leave_room, send, emit
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, HiddenField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_migrate import Migrate
-from flask_login import LoginManager
-import os
 
 app = Flask(__name__)
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-app.config.from_mapping(
-    SECRET_KEY=os.environ.get('SECRET_KEY') or 'Memomate',
-    SQLALCHEMY_DATABASE_URI=os.environ.get(
-        'DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db'),
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
-)
-
+app.config['SECRET_KEY'] = 'your-secret-key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 db = SQLAlchemy(app)
-login = LoginManager(app)
-login.login_view = 'login'
 socketio = SocketIO(app)
-migrate = Migrate(app, db)
 
-# Define the Note model
+users = [
+    {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
+    {'username': 'user2', 'email': 'user2@example.com', 'password': 'password2'}
+]
+
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.String(1000), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    highlights = db.Column(db.String(1000))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    highlights = db.Column(db.String(1000))  
     reminder = db.Column(db.DateTime)
     highlighted_text = db.Column(db.String(1000))
-    
+    reminder = db.Column(db.DateTime, nullable=True)
+        
+    def __repr__(self):
+        return f"Note('{self.id}')"
+
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
-    highlights = HiddenField()
-
-# Define the User model
-class User(UserMixin, db.Model):
+    highlights = HiddenField()  
+    
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
-
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -71,15 +52,74 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-# Create tables before the first request
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
-
-# Flask routes
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        note_content = request.form.get('content')
+        note = Note.query.first()
+        
+        if note:
+            note.content = note_content
+        else:
+            new_note = Note(content=note_content)
+            db.session.add(new_note)
+        
+        db.session.commit()
+        
+        return redirect(url_for('index'))
+    
+    note = Note.query.first()
+    return render_template('index.html', note=note)
+
+@app.route('/export')
+def export_note():
+    global current_note_content
+    # Make sure there is content to export.
+    if not current_note_content.strip():
+        return "No content to export", 404
+
+    # Set the headers and filename for the download prompt.
+    headers = {
+        'Content-Disposition': 'attachment; filename=note.txt',
+        'Content-Type': 'text/plain'
+    }
+    
+    # Return the note as a downloadable text file.
+    return Response(current_note_content, headers=headers)
+
+
+@socketio.on('connect')
+def on_connect():
+    print('User connected')
+
+@socketio.on('disconnect')
+def on_disconnect():
+    print('User disconnected')
+
+@socketio.on('join')
+def on_join(data):
+    room = data['room']
+    join_room(room)
+    # Send existing note content when user joins the room
+    if room in notes_content:
+        emit('note content', {'content': notes_content[room]}, room=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    room = data['room']
+    leave_room(room)
+
+@socketio.on('edit note')
+def handle_edit_note_event(data):
+    room = data['room']
+    content = data['content']
+    # Update the note content in the dictionary
+    notes_content[room] = content
+    # Broadcast the updated content to all users in the room
+    emit('note content', {'content': content}, room=room, include_self=False)
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
 
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
@@ -114,8 +154,8 @@ def handle_notes():
 def test():
     return 'Test successful!'
 
-@app.route('/register', methods=['POST', 'GET'])
-def register():
+@app.route('/register_acc', methods=['POST', 'GET'])
+def register_acc():
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -126,12 +166,14 @@ def register():
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
             return "Username or email already exists. Please choose different credentials."
 
+
         new_user = User(username=username, email=email, password=password)  
+        # print(new_user)
         db.session.add(new_user)
         db.session.commit()
 
         session['username'] = username  
-        return redirect(url_for('dashboard'))  
+        return redirect(url_for('/dashboard'))  
 
     return render_template('register.html', form=form)
 
