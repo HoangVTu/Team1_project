@@ -8,6 +8,7 @@
 - **4. Create an Account**
 - **5. Log in**
 - **6. Log Out**
+- **7. API Implementation**
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
