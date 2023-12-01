@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for, s
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_wtf import FlaskForm
+from flask_bootstrap import Bootstrap
 from wtforms import StringField, TextAreaField, HiddenField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
@@ -9,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
 
 users = [
     {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
@@ -48,6 +50,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
@@ -82,7 +87,7 @@ def handle_notes():
 def test():
     return 'Test successful!'
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/register', methods=['POST', 'GET'])
 def register_acc():
     form = RegistrationForm()
 

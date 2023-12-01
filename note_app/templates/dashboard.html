@@ -1,34 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 66.6%;
+            margin: 0;
+            padding: 0;
             background-color: #f2f2f2;
-            padding: 16px;
-            border: 1px solid black;
-            border-radius: 8px;
-            margin: 8px;
         }
-        .quote {
+
+        .header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
             text-align: center;
         }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .quote {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quote h1 {
+            color: #333;
+        }
+
         .quote p {
             font-size: 18px;
+            margin-bottom: 10px;
         }
+
         .quote em {
             font-style: italic;
         }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .notes-container {
+            margin-top: 20px;
+        }
+
+        .note {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .note h3 {
+            color: #333;
+        }
+
+        .note p {
+            margin-bottom: 5px;
+        }
+
         .popup {
             display: none;
             position: fixed;
@@ -41,10 +91,10 @@
             border-radius: 8px;
             z-index: 1000;
         }
-
     </style>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetch('https://type.fit/api/quotes')
                 .then(response => response.json())
                 .then(quotes => {
@@ -59,22 +109,27 @@
         });
     </script>
 </head>
+
 <body>
+    <div class="header">
+        <h1>Dashboard</h1>
+    </div>
+
     <div class="container quote">
-        <h1 class="title">Inspirational Quote</h1>
+        <h1>Inspirational Quote</h1>
         <p id="quote">Loading...</p>
         <em id="author"></em>
     </div>
-    <div class="container">
-        <button onclick="location.href='/create_note'">Create Note</button>
-        <button onclick="openStarredNotesPopup()">View Starred Notes</button>
-        <button onclick="location.href='/log_out'" style="float: right;">Log Out</button>
-    </div>
-    
 
-    <div class="container notes-container">
-        <h2>Your Notes</h2>
-        <div id="notes-area">
+    <div class="container">
+        <div class="button-container">
+            <button onclick="location.href='/create_note'">Create Note</button>
+            <button onclick="openStarredNotesPopup()">View Starred Notes</button>
+            <button onclick="location.href='/log_out'">Log Out</button>
+        </div>
+
+        <div class="notes-container" id="notes-area">
+            <h2>Your Notes</h2>
         </div>
     </div>
 
@@ -85,8 +140,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/api/notes') 
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/api/notes')
                 .then(response => response.json())
                 .then(notes => {
                     const notesArea = document.getElementById('notes-area');
@@ -106,7 +161,7 @@
                 })
                 .catch(error => console.error('Error fetching notes:', error));
         });
-    
+
         function deleteNote(noteId, button) {
             fetch('/delete_note/' + noteId, { method: 'DELETE' })
                 .then(() => {
@@ -114,6 +169,7 @@
                 })
                 .catch(error => console.error('Error deleting note:', error));
         }
+
         function openStarredNotesPopup() {
             document.getElementById('starredNotesPopup').style.display = 'block';
         }
@@ -121,6 +177,7 @@
         function closeStarredNotesPopup() {
             document.getElementById('starredNotesPopup').style.display = 'none';
         }
+
         function toggleStar(noteId, isStarred, button) {
             const url = isStarred ? '/unstar_note/' + noteId : '/star_note/' + noteId;
             fetch(url, {
@@ -135,8 +192,7 @@
                 })
                 .catch(error => console.error('Error toggling star:', error));
         }
-
-
     </script>
 </body>
+
 </html>
