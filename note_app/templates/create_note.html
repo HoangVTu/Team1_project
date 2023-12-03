@@ -11,46 +11,57 @@
             align-items: center;
             justify-content: center;
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            height: 100vh;
         }
         .form-container {
-            width: 50%;
-            background-color: #f2f2f2;
-            padding: 16px;
-            border: 1px solid black;
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            margin: 8px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         form {
             display: flex;
             flex-direction: column;
         }
         .form-group {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         label {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
         }
-        input[type="text"], textarea {
+        input[type="text"],
+        textarea,
+        input[type="datetime-local"] {
             width: 100%;
-            padding: 8px;
+            padding: 20px; /* Increased padding for better readability */
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
         button {
             width: 100%;
-            padding: 10px;
-            background-color: blue;
+            padding: 15px; /* Adjusted padding */
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: darkblue;
+            background-color: #0056b3;
         }
         .highlighted {
-        background-color: yellow;
-    }
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +73,7 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea id="content" name="content" rows="4" required></textarea>
+                <textarea id="content" name="content" rows="10" required></textarea> <!-- Increased rows for a larger text area -->
             </div>
             <input type="hidden" id="highlights" name="highlights">
             <div class="form-group">
@@ -70,16 +81,6 @@
                 <input type="datetime-local" id="reminder" name="reminder">
             </div>
 
-            <button type="button" onclick="highlightText()">Toggle Highlight</button>
-
-            <script>
-                function highlightText() {
-                    const selectedText = getSelectedText();
-                    if (selectedText) {
-                        document.getElementById('highlights').value += selectedText + ";";
-                    }
-                }
-            </script>
             <button type="submit">Create Note</button>
         </form>
     </div>

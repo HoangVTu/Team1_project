@@ -49,9 +49,11 @@
 </head>
 <body>
     <div class="container">
-        <form method="post" action="/">
+        <form method="post" action="/register">
             {{ form.hidden_tag() }}
-            <h2>User Registration for MemoMate</h2>
+            <div class="form-group">
+                <h2>Register An Account for MemoMate</h2>
+            </div>
             <div class="form-group">
                 {{ form.username.label }}
                 {{ form.username }}
