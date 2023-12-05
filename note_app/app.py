@@ -38,12 +38,15 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    security_answer = db.Column(db.String(150), nullable=False)
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+    security_answer = StringField('Answer to Security Question: What was the name of your elementary school?', validators=[DataRequired()])
     submit = SubmitField('Register')
+    
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -79,7 +82,7 @@ def handle_notes():
     notes = Note.query.order_by(Note.created_at.desc()).all()
     return jsonify([
         {'id': note.id, 'title': note.title, 'content': note.content, 
-         'created_at': note.created_at.isoformat(), 'highlights': note.highlights}
+         'created_at': note.created_at.isoformat(), 'is_starred': note.is_starred, 'highlights': note.highlights}
         for note in notes
     ])
 
@@ -100,7 +103,7 @@ def register_acc():
             return "Username or email already exists. Please choose different credentials."
 
 
-        new_user = User(username=username, email=email, password=password)  
+        new_user = User(username=username, email=email, password=password, security_answer=form.security_answer.data)  
         # print(new_user)
         db.session.add(new_user)
         db.session.commit()
@@ -190,6 +193,35 @@ def unstar_note(note_id):
         db.session.commit()
         return jsonify({'message': 'Note unstarred'}), 200
     return jsonify({'message': 'Note not found'}), 404
+
+class PasswordResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    security_answer = StringField('Answer to Security Question', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    submit = SubmitField('Reset Password')
+
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    form = PasswordResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.security_answer == form.security_answer.data:
+            user.password = form.new_password.data  
+            db.session.commit()
+            return redirect(url_for('login'))
+        else:
+            return "Invalid email or security answer."
+    return render_template('password_reset.html', form=form)
+
+@app.route('/api/starred_notes', methods=['GET'])
+def get_starred_notes():
+    starred_notes = Note.query.filter_by(is_starred=True).all()
+    return jsonify([
+        {'id': note.id, 'title': note.title, 'content': note.content}
+        for note in starred_notes
+    ])
+
 
 with app.app_context():
     db.drop_all()  

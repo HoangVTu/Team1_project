@@ -171,8 +171,25 @@
         }
 
         function openStarredNotesPopup() {
+            fetch('/api/starred_notes')
+                .then(response => response.json())
+                .then(starredNotes => {
+                    const starredNotesArea = document.getElementById('starred-notes-area');
+                    starredNotesArea.innerHTML = '';  // Clear previous content
+                    starredNotes.forEach(note => {
+                        const noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.innerHTML = `
+                            <h3>${note.title}</h3>
+                            <p>${note.content}</p>
+                        `;
+                        starredNotesArea.appendChild(noteDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching starred notes:', error));
             document.getElementById('starredNotesPopup').style.display = 'block';
         }
+
 
         function closeStarredNotesPopup() {
             document.getElementById('starredNotesPopup').style.display = 'none';
