@@ -176,7 +176,8 @@
                 .then(response => response.json())
                 .then(starredNotes => {
                     const starredNotesArea = document.getElementById('starred-notes-area');
-                    starredNotesArea.innerHTML = '';  
+                    starredNotesArea.innerHTML = '';
+
                     starredNotes.forEach(note => {
                         const noteDiv = document.createElement('div');
                         noteDiv.className = 'note';
