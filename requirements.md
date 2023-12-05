@@ -11,7 +11,7 @@
 9. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
 10. Dashboard - This is where the user can user the app features (Steve)
 11. Password reset - Allow users to reset their password (Steve)
-12. Navigation Bar - Allow users to navigate through different page (Steve)
+12. Edit Notes - Allow users to make changes to exisitng notes (Steve)
 13. *Insipirational Quotes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
 14. *Translate Function (Externa1 Google Translate API) (Gautam)
  
@@ -98,10 +98,10 @@
 - **Trigger:** User wants to search for a specific note 
 - **Primary Sequence:** 
 1. User navigates to the Search Bar
-2. The user types in the title/tag associated with the note
+2. The user types in the title associated with the note
 3. The user clicks on the enter button 
-4. The system displays a list of note pages related to the keyword/tag
-- **Primary Postconditions:** User is able to choose from the given list of notes 
+4. The system displays the note page related to the title
+- **Primary Postconditions:** User is able to view the note 
 - **Alternate Sequence:**
 1. The system does not display a list of notes due to the keyword/tag not matching 
 2. The system displays a message of "No notes were found"
@@ -128,7 +128,7 @@
 5. The system displays a list of note files that the user can add 
 - **Primary Postconditions:** The folder that was created contains note files that the user wanted to add and is organized
 - **Alternate Sequence:**
-1. The user chooses to add a subfolder within the folder
+1. The user chooses to add a subfolder. 
 2. System displays add a new folder button
 3. The user clicks the button
 4. System displays a text box to name the folder
@@ -155,15 +155,16 @@
 - **Alternate Sequence:** 
 1. The user enter the wrong required information
 
-**12. Navigation Bar (Steve)** 
+**12. Edit Notes (Steve)** 
 - **Pre-condition:** User log into their account
-- **Trigger:** User wants to go back to the home/login page
+- **Trigger:** User created a notes in the dashboard
 - **Primary Sequence:**
-1. User go to the navigation bar
-2. User select home/login page button
-- **Primary Postconditions:** The system will take the user to that specific page
+1. User select the note
+2. User click on the edit button
+- **Primary Postconditions:** The system will take the user to that specific note
 - **Alternate Sequence:** 
-1. The user did not sign into their account
+1. The user did not create any new notes
+2. The user deleted the note they want to change
 
 **13. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
 - **Pre-condition:** User is logged in to the application
@@ -176,16 +177,15 @@
 - **Alternate Sequence:** 
 1. The user is not logged in and navigates to dashboard, system should not query api
 
-**14. Translate Function (Externa1 Google Translate API) (Gautam)**
+**14. Translate Function (DeepTranslator library) (Gautam)**
 - **Pre-condition:** User is logged in to the application
 - **Trigger:** User starts adding notes to a note files
 - **Primary Sequence:**
-1. User navigates to Translate button 
+1. User navigates to the note file 
 2. User clicks on translate button
-3. System displays a list of language they can convert the text into using API
+3. System displays a list of language they can convert the text into(i.e hindi, spanish, french, etc)
 4. User selects a language
-5. System displays text into the language that was chosen
-- **Primary Postconditions:** The note is updated with a new language
+- **Primary Postconditions:** The note will be displayed with the selected language
 - **Alternate Sequence:** 
 1. The user chooses not to translate
 2. User clicks on "Revert Translation"
