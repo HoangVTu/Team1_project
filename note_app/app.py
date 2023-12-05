@@ -253,6 +253,25 @@ def get_starred_notes():
         for note in starred_notes
     ])
 
+@app.route('/edit_note/<int:note_id>', methods=['GET', 'POST'])
+def edit_note(note_id):
+    note = Note.query.get_or_404(note_id)
+
+    if request.method == 'POST':
+        note.title = request.form['title']
+        note.content = request.form['content']
+        db.session.commit()
+        return redirect('/dashboard')
+
+    return render_template('edit_note.html', note=note)
+
+@app.route('/update_note/<int:note_id>', methods=['POST'])
+def update_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    note.title = request.form['title']
+    note.content = request.form['content']
+    db.session.commit()
+    return redirect('/dashboard')
 
 
 with app.app_context():

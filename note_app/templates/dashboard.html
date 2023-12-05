@@ -156,6 +156,7 @@
                             <button onclick="toggleStar(${note.id}, ${note.is_starred}, this)">
                                 ${note.is_starred ? 'Unstar' : 'Star'}
                             </button>
+                            <button onclick="location.href='/edit_note/${note.id}'">Edit</button>
                         `;
                         notesArea.appendChild(noteDiv);
                     });
