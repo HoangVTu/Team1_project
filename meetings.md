@@ -24,7 +24,7 @@
 - **Team Update**
 - **Akhil will be working on creating a basic website UI using react and various other tools**
 - **Gautam will continue to work on his two requirements**
-- **Hoang will also continue to work on his requirements**
+- **Hoang will also continue to work on the login and create account function**
 - **Summarize: Just checked in on each other's progress and answered any questions that we had**
 
 ## 2023-11-25 at 6:00 PM
@@ -40,5 +40,5 @@
 - **Gautam, Hoang, Akhil attended**
 - **Discussed about milestone 3 assignment**
 - **Team Update**
-- **Akhil fix the errors in the project code**
-- **Summarize: All team members continue to doing their requirement and pushing onto github their requirement**
+- **Akhil fix the errors and database in the project code**
+- **Summarize: The team discuss about the error in the code that was messing up the login and create account. Additionally, Hoang and Akhil push new commit onto the github**

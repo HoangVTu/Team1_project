@@ -67,6 +67,14 @@
                 {{ form.email }}
             </div>
             <div class="form-group">
+                {{ form.security_question.label }}
+                {{ form.security_question }}
+            </div>
+            <div class="form-group">
+                {{ form.security_answer.label }}
+                {{ form.security_answer }}
+            </div>
+            <div class="form-group">
                 {{ form.submit }}
             </div>
         </form>

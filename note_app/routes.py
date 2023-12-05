@@ -1,54 +1,10 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
-from flask_sqlalchemy import SQLAlchemy
+from flask import render_template, jsonify, request, redirect, url_for, session, flash
+from note_app import app, db
+from note_app.forms import SecurityQuestionForm, NewPasswordForm
+from flask_login import login_user, current_user
+from note_app.models import Note, User
+from note_app.forms import NoteForm, RegistrationForm, LoginForm
 from datetime import datetime
-from flask_wtf import FlaskForm
-from flask_bootstrap import Bootstrap
-from wtforms import StringField, TextAreaField, HiddenField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
-db = SQLAlchemy(app)
-bootstrap = Bootstrap(app)
-
-users = [
-    {'username': 'user1', 'email': 'user1@example.com', 'password': 'password1'},
-    {'username': 'user2', 'email': 'user2@example.com', 'password': 'password2'}
-]
-
-class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.String(1000), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    highlights = db.Column(db.String(1000))  
-    reminder = db.Column(db.DateTime)
-    highlighted_text = db.Column(db.String(1000))
-    reminder = db.Column(db.DateTime, nullable=True)
-    is_starred = db.Column(db.Boolean, default=False)
-
-class NoteForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    highlights = HiddenField()  
-    
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Register')
-
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
 
 @app.route('/')
 def home():
@@ -129,6 +85,38 @@ def login():
 
     return render_template('login.html', form=form)
 
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    form = SecurityQuestionForm()
+
+    if form.validate_on_submit():
+        username_or_email = form.username.data
+        user = User.query.filter_by(username=username_or_email).first() or User.query.filter_by(email=username_or_email).first()
+
+        if user:
+            flash('Answer correct! You can now reset your password.', 'success')
+            # Redirect to the reset password page with the username as a parameter
+            return redirect(url_for('reset_password', username=user.username))
+
+        flash('Incorrect answer to the security question. Please try again.', 'error')
+
+    return render_template('reset_password_request.html', form=form)
+
+@app.route('/reset_password/<username>', methods=['GET', 'POST'])
+def reset_password(username):
+    form = NewPasswordForm()
+    user = User.query.filter_by(username=username).first()
+
+    if form.validate_on_submit():
+        # update user's password
+        user.set_password(form.new_password.data)
+        db.session.commit()
+
+        flash('Your password has been reset.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html', username=username, form=form)
+
 @app.route('/log_out')
 def log_out():
     session.pop('username', None)
@@ -198,3 +186,5 @@ with app.app_context():
 
 if __name__ == '__main__':
     app.run (debug = True)
+
+

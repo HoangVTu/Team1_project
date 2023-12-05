@@ -56,6 +56,16 @@
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .additional-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .additional-buttons a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +87,12 @@
                 {{ form.submit }}
             </div>
         </form>
+
+        <!-- Additional buttons for Home and Reset Password -->
+        <div class="additional-buttons">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('reset_password_request') }}">Reset Password</a>
+        </div>
     </div>
 </body>
 </html>
