@@ -24,11 +24,10 @@
 - **Pre-condition:** User is logged in and has an account
 - **Trigger:** User clicks create a new note button
 - **Primary Sequence:**
-1. The user clicks on the "Create Note" Button
-2. The user is taken to a new page with a blank note
-3. The user enters text for the new note
-4. User clicks on the "Save" button
-5. System saves and confirms that the note is saved to the user
+1. The user is taken to a new page with a blank note
+2. The user enters text for the new note
+3. User clicks on the "Save" button
+4. System saves and confirms that the note is saved to the user
 - **Primary Postconditions:** A new note is created and saved to the user's account
 - **Alternate Sequence:** 
 1. The user does not enter any text and clicks "Save"
@@ -36,11 +35,10 @@
 
 **2. Starred Notes (Akhil) - Milestone is one week after Edit and Save Notes requirements are completed**
 - **Pre-condition:** User is logged in and has notes
-- **Trigger:** User clicks the starred button on a note
+- **Trigger:** User navigate to the star notes on dashboard
 - **Primary Sequence:**
-1. User navigates to the notes dashboard
-2. The user clicks "Star" checkbox
-3. The system will render the starred note on an important note page
+1. The user clicks "Star" button
+2. The system will render the starred note on an important note page
 - **Primary Postconditions:** User is able to see the starred note on an important page
 - **Alternate Sequence:** 
 1. The user did not select the Star checkbox
@@ -60,11 +58,10 @@
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Create Account" button
 - **Primary Sequence:**
-1. User selects the "Create an Account" button on the app 
-2. The user fills in their desired username and password and other information required
-3. User then click on the "Create" button
-4. The system will confirm the account create
-- **Primary Postconditions:** The System will save the account and tell the user whether it was a success or not
+1. The user fills in their desired username and password and other information required
+2. User then click on the "Create" button
+3. The system will confirm the account create
+- **Primary Postconditions:** The System will save the account and log the user into their account
 - **Alternate Sequence:** 
 1. User did not enter an email for the account
 2. The system will alert the user to enter the missing field for information
@@ -72,35 +69,30 @@
 **5. Log in (Hoang)** [log_in](images/Login_Page.jpg)
 - **Pre-condition:** User must go to the app
 - **Trigger:** User click on the "Log In" button
-- **Primary Sequence:**
-1. User nagivate to the app
-2. User select the "Log In" button on the app 
-3. User fills in their username and password
-4. User click on the "Submit" button to log in
+- **Primary Sequence:** 
+1. User fills in their username and password
+2. User click on the "Submit" button to log in
 - **Primary Postconditions:** The System will check the account credentials and log into the user account
 - **Alternate Sequence:** 
 1. The user did not enter the correct username or password
 
 **6. Log Out (Hoang)** [log_out](images/Log_Out.jpg)
 - **Pre-condition:** User must go to the app
-- **Trigger:** User finish logging in and chooses the option "Log Out"
+- **Trigger:** User log into their account
 - **Primary Sequence:**
-1. User nagivate to the app
-2. User select the "Log In" button on the app 
-3. User must successfully log into their account
-4. The user chose the option "Log Out"
+1. User navigated on the dashboard
+2. User select the "Log Out" button on the app 
 - **Primary Postconditions:** System will successful sign the user out of their account
 - **Alternate Sequence:** 
 1. The user did not successfully log into their account
 
 **7. Search Function(Gautam)**
 - **Pre-condition** User is logged into the app
-- **Trigger:** User wants to search for a specific note 
+- **Trigger:** User navigates to the search bar 
 - **Primary Sequence:** 
-1. User navigates to the Search Bar
-2. The user types in the title associated with the note
-3. The user clicks on the enter button 
-4. The system displays the note page related to the title
+1. The user types in the title associated with the note
+2. The user clicks on the enter button 
+3. The system displays the note page related to the title
 - **Primary Postconditions:** User is able to view the note 
 - **Alternate Sequence:**
 1. The system does not display a list of notes due to the keyword/tag not matching 
@@ -108,7 +100,7 @@
 3. The user can exit or try again with a new keyword
 
 **8. Edit user profile(Gautam)**
-- **Pre-condition*:** User is logged into the app and is on the dashboard
+- **Pre-condition:** User is logged into the app and is on the dashboard
 - **Trigger:** User click on the navigation bar
 - **Primary Sequence:**
 1. The user select and click on profile button
@@ -118,21 +110,16 @@
 1. The user did not click on the profile button
 
 **9. File to Folder Organization(Gautam)**
-- **Pre-condition*:** User is logged into the app 
-- **Trigger:** User wants to organize a note to a specific folder
-- **Primary Sequence:**
-1. User navigates to the "Create Folder" button 
-2. The user clicks on the "Create Folder" Button
-3. System displays a text box to name the folder 
-4. The user names the folder
-5. The system displays a list of note files that the user can add 
+- **Pre-condition:** User is logged into the app 
+- **Trigger:** User click on the "Create Folder" button
+- **Primary Sequence:** 
+1. System displays a text box to name the folder 
+2. The user names the folder
+3. The system displays a list of note files that the user can add 
 - **Primary Postconditions:** The folder that was created contains note files that the user wanted to add and is organized
 - **Alternate Sequence:**
-1. The user chooses to add a subfolder. 
-2. System displays add a new folder button
-3. The user clicks the button
-4. System displays a text box to name the folder
-5. The system displays a list of note files that the user can add
+1. User did not click on "Create Folder" button
+2. User don't have any notes
 
 **10. Dashboard (Steve)** 
 - **Pre-condition:** User has log into their account
@@ -167,27 +154,25 @@
 2. The user deleted the note they want to change
 
 **13. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
-- **Pre-condition:** User is logged in to the application
+- **Pre-condition:** User is logged in to the website
 - **Trigger:** User navigation to dashboard
 - **Primary Sequence:**
-1. User navigates to dashboard
-2. System queries insipirational quote website and displays quote on dashboard
-3. User can choose to read the quote as it will be displayed when they are navigating around
+1. System queries insipirational quote website and displays quote on dashboard
+2. User can choose to read the quote as it will be displayed when they are navigating around
 - **Primary Postconditions:** Quote is cleared from memory upon navigation away from dashboard page
 - **Alternate Sequence:** 
-1. The user is not logged in and navigates to dashboard, system should not query api
+1. The user is not logged in
 
 **14. Translate Function (DeepTranslator library) (Gautam)**
 - **Pre-condition:** User is logged in to the application
-- **Trigger:** User starts adding notes to a note files
+- **Trigger:** User navigated to the search bar
 - **Primary Sequence:**
-1. User navigates to the note file 
-2. User clicks on translate button
+1. User look up a specific note
+2. User click on the language button
 3. System displays a list of language they can convert the text into(i.e hindi, spanish, french, etc)
 4. User selects a language
 - **Primary Postconditions:** The note will be displayed with the selected language
 - **Alternate Sequence:** 
-1. The user chooses not to translate
-2. User clicks on "Revert Translation"
-3. System displays the text in the original language
+1. User chooses not to translate
+2. User search for a note that does not exist
 
