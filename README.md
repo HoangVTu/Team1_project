@@ -9,6 +9,8 @@
 - **5. Log in** - Hoang
 - **6. Log Out** - Hoang
 - **7. API Implementation** - Akhil
+- **8. Dashboard** - Steve
+- **9. Dashboard** - Steve
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
@@ -29,6 +31,7 @@ To install MemoMate, follow these steps:
 - pip install python-dotenv
 - pip install Flask-Bcrypt
 - pip install flask-socketio
+- pip install Bootstrap
      
 ## Usage
 Run Project: python app.py

@@ -2,18 +2,18 @@
 ## Functional Requirements
 1. *Create and Save New Notes - Users can create new text notes and save them to their account (Akhil)
 2. Starred Notes - Users can star notes to have them display on a different page  (Akhil)
-3. *Delete Notes  - Users can delete written notes (Akhil)
-4. *Create an Account - Allowing users to create an account to use the app (Hoang)
+3. Delete Notes  - Users can delete written notes (Akhil)
+4. Create an Account - Allowing users to create an account to use the app (Hoang)
 5. Log in - Allowing users to log into their account to access the app (Hoang)
 6. Log Out - Allowing the user to sign out of their account in the app (Hoang) 
 7. Search Function - Allows user to search for a specific note by keyword or title (Gautam)
-8. Lock File Function - Allows user to lock each file with a password for privacy/security (Gautam)
+8. Edit user profile - User will be able to go into their account to see their info (Gautam)
 9. File to Folder Organization - Allows the user to organize each note into different folders or organize them by tags(Gautam)
-10. Note Sharing - Allow users to share their notes publicly or privately with other users. (Steve)
-11. Note Export - Allow users to export their notes to different formats, such as PDF, Word, or .txt (Steve)
-12. Collaboration - Allow users to collaborate on notes with other users (Steve)
-13. Insipirational Qoutes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
-14. Translate Function (Externa1 Google Translate API) (Gautam)
+10. Dashboard - This is where the user can user the app features (Steve)
+11. Password reset - Allow users to reset their password (Steve)
+12. Navigation Bar - Allow users to navigate through different page (Steve)
+13. *Insipirational Quotes (External API) - User can see an inspirational qoute upon every navigation to dashboard (Akhil)
+14. *Translate Function (Externa1 Google Translate API) (Gautam)
  
 ## Non-functional Requirements
 1. *The website should be operate on all exist operation systems.
@@ -107,20 +107,15 @@
 2. The system displays a message of "No notes were found"
 3. The user can exit or try again with a new keyword
 
-**8. Lock File Function(Gautam)**
-- **Pre-condition*:** User is logged into the app and is on a specific note page
-- **Trigger:** User wants to lock a note file for privacy
+**8. Edit user profile(Gautam)**
+- **Pre-condition*:** User is logged into the app and is on the dashboard
+- **Trigger:** User click on the navigation bar
 - **Primary Sequence:**
-1. The user navigates to the Lock File button in the top right corner 
-2. The user clicks on the Lock File Button
-3. The system displays a box asking the user to input their account password 
-4. The system displays a text message saying, "Note has been locked"
-- **Primary Postconditions:** The note is locked and cannot be accessed unless a password is entered
+1. The user select and click on profile button
+2. The system will take the user to a different page
+- **Primary Postconditions:** The system take the user to their profile page
 - **Alternate Sequence:**
-1. The user is not able to lock the file due to an incorrect password or forgotten password
-2. System displays incorrect password message
-3. The system displays a "try again" button and a "forgot password" button
-4. The user clicks on either one
+1. The user did not click on the profile button
 
 **9. File to Folder Organization(Gautam)**
 - **Pre-condition*:** User is logged into the app 
@@ -139,41 +134,36 @@
 4. System displays a text box to name the folder
 5. The system displays a list of note files that the user can add
 
-**10. Note Sharing (Steve)** 
-- **Pre-condition:** User has created a note
-- **Trigger:** User wants to share the note with another user
+**10. Dashboard (Steve)** 
+- **Pre-condition:** User has log into their account
+- **Trigger:** User wants to use one of the app features
 - **Primary Sequence:**
-1. The user selects the note they want to share
-2. The user clicks the "Share" button
-3. The user enters the email address of the user they want to share the note with
-4. The user selects the desired access level (read or write) for the shared user
-5. The user clicks the "Share" button
-- **Primary Postconditions:** The shared user receives an email with a link to the note & can access the note with the specified access level
+1. The user select one of the feature on the dashboard
+2. The user clicks on that specific feature button that they want
+- **Primary Postconditions:** The system will take the user to that specific feature page
 - **Alternate Sequence:** 
-1. If the shared user does not have an account, they will be prompted to create one
+1. The user did not sign in with their account
 
-**11. Note Export (Steve)** 
-- **Pre-condition:** User has created a note
-- **Trigger:** User wants to export the note to a different format
+**11. Password reset (Steve)** 
+- **Pre-condition:** User has created an account
+- **Trigger:** User click on the Login page
 - **Primary Sequence:**
-1. The user selects the note they want to export
-2. User clicks the "Export" button
-3. The user selects the desired export format
-4. User clicks the "Export" button
-- **Primary Postconditions:** The note is exported to the selected format & saved to the user's computer
+1. The user selects reset passsword button
+2. The user fill out the required information in the reset password page
+3. The user click submit
+- **Primary Postconditions:** The system will pop up a window saying that user successfully reset their password
 - **Alternate Sequence:** 
-1. If the user does not have the required software to open the exported file, they will be prompted to download it
+1. The user enter the wrong required information
 
-**12. Collaboration (Steve)** 
-- **Pre-condition:** Multiple users have access to a note
-- **Trigger:** One user starts editing the note
+**12. Navigation Bar (Steve)** 
+- **Pre-condition:** User log into their account
+- **Trigger:** User wants to go back to the home/login page
 - **Primary Sequence:**
-1. The user's changes are broadcast to all other users in real-time
-2. All other users see the changes reflected in the note
-3. Users can collaborate on the note in real-time
-- **Primary Postconditions:** The note is updated with the collective contributions of all users & all users have a consistent view of the note
+1. User go to the navigation bar
+2. User select home/login page button
+- **Primary Postconditions:** The system will take the user to that specific page
 - **Alternate Sequence:** 
-1. If there is a conflict between changes made by different users, a conflict resolution mechanism will be used to determine which change is accepted
+1. The user did not sign into their account
 
 **13. Insipirational Quotes (External API) (Akhil) - Milestone is once dashboard page is created**
 - **Pre-condition:** User is logged in to the application
