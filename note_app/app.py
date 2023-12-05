@@ -27,6 +27,7 @@ class Note(db.Model):
     highlighted_text = db.Column(db.String(1000))
     reminder = db.Column(db.DateTime, nullable=True)
     is_starred = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -59,6 +60,12 @@ def home():
 
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
+    if 'username' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
     print("handle_notes function called")
     notes = Note.query.order_by(Note.created_at.desc()).all()
     print("Notes to send:", notes) 
@@ -73,13 +80,14 @@ def handle_notes():
                 highlights=form.highlights.data,
                 reminder=data.get('reminder')
             )
+            new_note.user_id = user.id
             db.session.add(new_note)
             db.session.commit()
             return jsonify({'message': 'Note added', 'id': new_note.id}), 201
         else:
             return jsonify({'errors': form.errors}), 400
 
-    notes = Note.query.order_by(Note.created_at.desc()).all()
+    notes = Note.query.filter_by(user_id=user.id).order_by(Note.created_at.desc()).all()
     return jsonify([
         {'id': note.id, 'title': note.title, 'content': note.content, 
          'created_at': note.created_at.isoformat(), 'is_starred': note.is_starred, 'highlights': note.highlights}
@@ -140,12 +148,24 @@ def log_out():
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
+        user = User.query.filter_by(username=session['username']).first()
+        if user:
+            user_notes = Note.query.filter_by(user_id=user.id).order_by(Note.created_at.desc()).all()
+            return render_template('dashboard.html', username=session['username'], notes=user_notes)
     else:
         return redirect(url_for('login'))
 
+
+
 @app.route('/create_note', methods=['GET', 'POST'])
 def create_note():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return redirect(url_for('login'))
+    
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
@@ -159,13 +179,14 @@ def create_note():
             except ValueError:
                 pass  
 
-        new_note = Note(title=title, content=content, highlighted_text=highlights, reminder=reminder)
+        new_note = Note(title=title, content=content, highlighted_text=highlights, reminder=reminder, user_id=user.id)
         db.session.add(new_note)
         db.session.commit()
 
         return redirect(url_for('dashboard'))
 
     return render_template('create_note.html')
+
 
 @app.route('/delete_note/<int:note_id>', methods=['DELETE'])
 def delete_note(note_id):
@@ -219,11 +240,19 @@ def reset_password():
 
 @app.route('/api/starred_notes', methods=['GET'])
 def get_starred_notes():
-    starred_notes = Note.query.filter_by(is_starred=True).all()
+    if 'username' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    starred_notes = Note.query.filter_by(user_id=user.id, is_starred=True).all()
     return jsonify([
         {'id': note.id, 'title': note.title, 'content': note.content}
         for note in starred_notes
     ])
+
 
 
 with app.app_context():
