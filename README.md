@@ -10,7 +10,7 @@
 - **6. Log Out** - Hoang
 - **7. API Implementation** - Akhil
 - **8. Dashboard** - Steve
-- **9. Dashboard** - Steve
+- **9. Password Reset** - Steve
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
