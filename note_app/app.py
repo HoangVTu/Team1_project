@@ -182,6 +182,7 @@ def star_note(note_id):
     if note:
         note.is_starred = True
         db.session.commit()
+        print(f"Note {note_id} starred")
         return jsonify({'message': 'Note starred'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
@@ -191,6 +192,7 @@ def unstar_note(note_id):
     if note:
         note.is_starred = False
         db.session.commit()
+        print(f"Note {note_id} unstarred")
         return jsonify({'message': 'Note unstarred'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
@@ -213,6 +215,7 @@ def reset_password():
         else:
             return "Invalid email or security answer."
     return render_template('password_reset.html', form=form)
+
 
 @app.route('/api/starred_notes', methods=['GET'])
 def get_starred_notes():
