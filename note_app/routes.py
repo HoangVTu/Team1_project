@@ -296,7 +296,7 @@ def search():
             for note in note_results:
                 return render_template('search.html',searched=searched_term, note_results=note.content)
         else:
-            return jsonify({'message':'Note not found'})
+            return "The note was note found. Please try again."
         return render_template('search.html', searched=searched_term)
 
 @app.route('/translate/<searched>/<note_results>', methods = ['GET','POST'])
@@ -378,7 +378,49 @@ def add_to_folder(note_id):
 
 
 
+@app.route('/user_question', methods=['GET', 'POST'])
+def user_question():
+    if request.method == 'POST':
+        securityAnswer = request.form['security_answer']
+        user = User.query.filter_by(security_answer=securityAnswer).first()
+        if user:
+              #Redirect to the edit_user_profile route, passing user ID as an argument
+            return redirect(url_for('edit_user_profile', user_id=user.id))
+        else:
+            return jsonify({'answer': False})
+    
+    return render_template('displayUserQuestion.html')
 
+
+
+@app.route('/userProfile', methods=['GET', 'POST'])
+def edit_user_profile():
+    if request.method == "POST":
+        past_user = User.query.filter_by(username=session['username']).first()
+
+        new_username = request.form['username']
+        new_password = request.form['password']
+        confirm_new_password = request.form['confirm_password']
+        new_email = request.form['email']
+
+        if past_user:
+            if past_user.username != new_username:
+                past_user.username = new_username
+            else:
+                return "Past and Current Username cannot be the same. Please try again."
+            if new_password and new_password == confirm_new_password:
+                past_user.password = new_password
+            else:
+                return "Past and current password cannot be the same. Please try again."
+            if past_user.email != new_email:
+                past_user.email = new_email
+            else:
+                return "Past and current email cannot be the same. Please try again."
+            db.session.commit()
+            return redirect(url_for('edit_user_profile'))
+        else:
+            return "Did not work. Please try again."
+    return render_template('editUserProfile.html')  
 
 
 
