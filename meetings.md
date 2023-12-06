@@ -49,4 +49,5 @@
 - **Team Update**
 - **Only small edits left to be made**
 - **Video to be completed tonight & complete package turned in tonight by Hoang**
+- **All team member have completed 1+ push onto GitHub per requirements**
 - **Summary: All team members complete and video to be made**
