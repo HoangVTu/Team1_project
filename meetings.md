@@ -42,3 +42,12 @@
 - **Team Update**
 - **Akhil fix the errors in the project code**
 - **Summarize: All team members continue to doing their requirement and pushing onto github their requirement**
+
+## 2023-12-5 at 9:30 PM
+- **Gautam, Hoang, Akhil, Steve**
+- **Discussed current project changes and status**
+- **Team Update**
+- **Only small edits left to be made**
+- **Video to be completed tonight & complete package turned in tonight by Hoang**
+- **All team member have completed 1+ push onto GitHub per requirements**
+- **Summary: All team members complete and video to be made**
