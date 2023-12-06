@@ -26,3 +26,8 @@ class PasswordResetForm(FlaskForm):
     security_answer = StringField('Answer to Security Question', validators=[DataRequired()])
     new_password = PasswordField('New Password', validators=[DataRequired()])
     submit = SubmitField('Reset Password')
+
+class FolderForm(FlaskForm):
+    name = StringField('Folder Name')
+    submit = SubmitField('Create Folder')
+    enter = SubmitField('Enter')
