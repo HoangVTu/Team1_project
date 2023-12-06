@@ -12,6 +12,10 @@
 - **8. Dashboard** - Steve
 - **9. Password Reset** - Steve
 - **10. Edit Notes** - Steve
+- **11. Search Function** - Gautam
+- **12. Edit user profile** - Gautam
+- **13. File to Folder Organization** - Gautam
+- **14. Translate Function (Externa1 Google Translate API)** - Gautam
 
 ## MemoMate - your digital mate that wont forget your memories!
 - **Akhil Manjesh (@akhilmanjesh)**
