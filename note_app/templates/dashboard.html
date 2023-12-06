@@ -13,13 +13,6 @@
             background-color: #f2f2f2;
         }
 
-        .header {
-            background-color: #333;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-
         .container {
             width: 80%;
             margin: auto;
@@ -54,12 +47,6 @@
             margin-bottom: 20px;
         }
 
-        .button-container button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
         .notes-container {
             margin-top: 20px;
         }
@@ -85,12 +72,127 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background-color: #d4af37;
+            background-color: white;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
             z-index: 1000;
         }
+
+        .button {
+            background-color: #white;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: left;
+        }
+
+        .firstButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #blueviolet;
+            border-radius: 12px;
+        }
+
+        .firstButton:hover {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+         .secondButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 12px;
+
+        }
+        .secondButton:hover {
+            background-color: gold;
+            color: white;
+        }
+
+        .thridButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 12px;
+
+        }
+
+        .thridButton:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .inlineDeleteButton {
+            background-color: red; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 16px;
+            padding: 6px 14px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+
+        }
+
+        .inlineStarButton {
+            background-color: gold; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 16px;
+            padding: 6px 14px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+
+        }
+        
+        .navbar {
+            position: relative;
+            background: black;
+            background-color: #333;
+            color: white;
+        }
+
+        #navlist {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            background: #333;
+        }
+
+        #navlist li {
+            flex: auto;
+            text-align: center;
+            padding: 1.6em;
+            font-size: 18px;
+            color: white;
+        }
+
+        #navlist h1:hover{
+            cursor: pointer;
+            color: dodgerblue;
+
+        }
+
     </style>
 
     <script>
@@ -111,9 +213,22 @@
 </head>
 
 <body>
-    <div class="header">
-        <h1>Dashboard</h1>
-    </div>
+    <nav class="navbar">
+        <ul id="navlist">
+            <li class = "header"><h1 onclick="location.href='/dashboard'">MemoMate</h1></li>
+            <div class="button-container">
+                <li>
+                    <button class="button firstButton" onclick="location.href='/create_note'">Create Note</button>
+                </li>
+                <li>
+                    <button class="button secondButton" onclick="openStarredNotesPopup()">View Starred Notes</button>
+                </li>
+                <li>
+                    <button class="button thridButton" onclick="location.href='/log_out'">Log Out</button>
+                </li>
+            </div>
+        </ul>
+    </nav>
 
     <div class="container quote">
         <h1>Inspirational Quote</h1>
@@ -122,12 +237,6 @@
     </div>
 
     <div class="container">
-        <div class="button-container">
-            <button onclick="location.href='/create_note'">Create Note</button>
-            <button onclick="openStarredNotesPopup()">View Starred Notes</button>
-            <button onclick="location.href='/log_out'">Log Out</button>
-        </div>
-
         <div class="notes-container" id="notes-area">
             <h2>Your Notes</h2>
         </div>
@@ -145,18 +254,16 @@
                 .then(response => response.json())
                 .then(notes => {
                     const notesArea = document.getElementById('notes-area');
-                    notesArea.innerHTML = ''; 
                     notes.forEach(note => {
                         const noteDiv = document.createElement('div');
                         noteDiv.className = 'note';
                         noteDiv.innerHTML = `
                             <h3>${note.title}</h3>
                             <p>${note.content}</p>
-                            <button onclick="deleteNote(${note.id}, this)">Delete</button>
-                            <button onclick="toggleStar(${note.id}, ${note.is_starred}, this)">
+                            <button class="inlineDeleteButton" onclick="deleteNote(${note.id}, this)">Delete</button>
+                            <button class="inlineStarButton" onclick="toggleStar(${note.id}, ${note.is_starred}, this)">
                                 ${note.is_starred ? 'Unstar' : 'Star'}
                             </button>
-                            <button onclick="location.href='/edit_note/${note.id}'">Edit</button>
                         `;
                         notesArea.appendChild(noteDiv);
                     });
@@ -173,26 +280,8 @@
         }
 
         function openStarredNotesPopup() {
-            fetch('/api/starred_notes')
-                .then(response => response.json())
-                .then(starredNotes => {
-                    const starredNotesArea = document.getElementById('starred-notes-area');
-                    starredNotesArea.innerHTML = '';
-
-                    starredNotes.forEach(note => {
-                        const noteDiv = document.createElement('div');
-                        noteDiv.className = 'note';
-                        noteDiv.innerHTML = `
-                            <h3>${note.title}</h3>
-                            <p>${note.content}</p>
-                        `;
-                        starredNotesArea.appendChild(noteDiv);
-                    });
-                })
-                .catch(error => console.error('Error fetching starred notes:', error));
             document.getElementById('starredNotesPopup').style.display = 'block';
         }
-
 
         function closeStarredNotesPopup() {
             document.getElementById('starredNotesPopup').style.display = 'none';

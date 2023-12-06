@@ -8,12 +8,12 @@
         body {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             height: 100vh;
+
         }
         .form-container {
             width: 60%;
@@ -23,6 +23,8 @@
             border-radius: 8px;
             margin: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 250px;
+            margin-right: 250px;
         }
         form {
             display: flex;
@@ -62,9 +64,119 @@
         .highlighted {
             background-color: yellow;
         }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #white;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: left;
+        }
+
+        .firstButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #blueviolet;
+            border-radius: 12px;
+        }
+
+        .firstButton:hover {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+         .secondButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 12px;
+
+        }
+        .secondButton:hover {
+            background-color: gold;
+            color: white;
+        }
+
+        .thridButton {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #black;
+            border-radius: 12px;
+
+        }
+
+        .thridButton:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .navbar {
+            position: relative;
+            background: black;
+            background-color: #333;
+            color: white;
+        }
+
+        #navlist {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            background: #333;
+        }
+
+        #navlist li {
+            flex: auto;
+            text-align: center;
+            padding: 1.6em;
+            font-size: 18px;
+            color: white;
+        }
+
+        #navlist h1:hover{
+            cursor: pointer;
+            color: dodgerblue;
+
+        }
+
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <ul id="navlist">
+            <li class = "header"><h1 onclick="location.href='/dashboard'">MemoMate</h1></li>
+            <div class="button-container">
+                <li>
+                    <button class="button firstButton" onclick="location.href='/create_note'">Create Note</button>
+                </li>
+                <li>
+                    <button class="button secondButton" onclick="openStarredNotesPopup()">View Starred Notes</button>
+                </li>
+                <li>
+                    <button class="button thridButton" onclick="location.href='/log_out'">Log Out</button>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
     <div class="form-container">
         <form action="/create_note" method="post">
             <div class="form-group">
@@ -76,6 +188,10 @@
                 <textarea id="content" name="content" rows="10" required></textarea> <!-- Increased rows for a larger text area -->
             </div>
             <input type="hidden" id="highlights" name="highlights">
+            <div class="form-group">
+                <label for="reminder">Reminder (optional)</label>
+                <input type="datetime-local" id="reminder" name="reminder">
+            </div>
 
             <button type="submit">Create Note</button>
         </form>
