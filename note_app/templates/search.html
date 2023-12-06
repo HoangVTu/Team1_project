@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .quote {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quote h1 {
+            color: #333;
+        }
+
+        .quote p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .quote em {
+            font-style: italic;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .notes-container {
+            margin-top: 20px;
+        }
+
+        .note {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .note h3 {
+            color: #333;
+        }
+
+        .note p {
+            margin-bottom: 5px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container Search note_results">
+        <h2>Your Notes</h2>
+        {% block content %}
+            <br/>
+            <h3> You searched for...</h3>
+            <h1>{{ searched }}</h1>
+            <p>{{ note_results }}</p>
+        {% endblock %}
+    </div>
+    <div class="container d-flex align-items-center justify-content-center" style="height: 10vh;">
+    <form method="POST" action ='/translate/{{searched}}/{{note_results}}>'>
+        <div class="row">
+            <div class="col-md-8 text-center">
+        <select name="language" id="language">
+            <option value="english" selected>English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="hindi">Hindi</option>
+            <option value="mandarin">Mandarin</option>
+            <option value="arabic">Arabic</option>
+        </select>
+        </div>
+        </div>
+        <br><br>
+        <button type="submit" >Translate</button>
+    </form>
+</body>
+</html>

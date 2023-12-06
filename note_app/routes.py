@@ -1,8 +1,9 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
 from note_app import app, db
-from note_app.models import Note, User
-from note_app.forms import NoteForm, RegistrationForm, LoginForm, PasswordResetForm
+from note_app.models import Note, User,Folder
+from note_app.forms import NoteForm, RegistrationForm, LoginForm, PasswordResetForm,FolderForm
 from datetime import datetime
+from deep_translator import GoogleTranslator
 
 
 @app.route('/')
@@ -14,8 +15,6 @@ def home():
 def handle_notes():
     if 'username' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-
-
     user = User.query.filter_by(username=session['username']).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
@@ -39,8 +38,6 @@ def handle_notes():
             return jsonify({'message': 'Note added', 'id': new_note.id}), 201
         else:
             return jsonify({'errors': form.errors}), 400
-
-
     notes = Note.query.filter_by(user_id=user.id).order_by(Note.created_at.desc()).all()
     return jsonify([
         {'id': note.id, 'title': note.title, 'content': note.content,
@@ -164,6 +161,41 @@ def create_note():
 
     return render_template('create_note.html')
 
+@app.route('/api/folders',methods = ['GET', 'POST'])
+def handle_folders():
+    print("handle_folders called")
+    if request.method == "POST":
+        folderData = request.json
+        print("Receieved data:", folderData)
+        form = FolderForm(meta = {'csrf':False})
+        if form.validate_on_submit():
+            new_folder = Folder(name = form.name.data)
+            db.session.add(new_folder)
+            db.session.commit()
+            return jsonify({'message': 'folder added', 'id': new_folder.id}),201
+        else:
+            return jsonify({'errors': form.errors}), 400
+    folders = Folder.query.order_by(Folder.folder_id.desc()).all()
+    folder_list =[]
+    for folder in folders:
+        folderData = {'id':folder.folder_id, 'name':folder.name, 'notes': []}
+        for note in folder.notes:
+            note_data = {'id': note.id, 'title': note.title, 'content': note.content}
+            folderData['notes'].append(note_data)
+        folder_list.append(folderData)
+    return jsonify(folder_list)
+
+@app.route('/api/folders/<int:folderid>/notes', methods=['GET', 'POST'])
+def handle_notes_in_folders(folderid):
+    print(f"Handling notes for folder {folderid}")
+    notes = Note.query.filter_by(folder_id = folderid).all()
+    note_list = []
+    for note in notes:
+        noteData = {'id': note.id, 'title': note.title, 'content': note.content}
+        note_list.append(noteData)
+    return jsonify(note_list)
+
+
 
 @app.route('/delete_note/<int:note_id>', methods=['DELETE'])
 def delete_note(note_id):
@@ -251,6 +283,104 @@ def update_note(note_id):
     note.content = request.form['content']
     db.session.commit()
     return redirect('/dashboard')
+
+
+
+
+@app.route('/search', methods = ['GET', 'POST'])
+def search():
+    if request.method =="POST":
+        searched_term =  request.form['search']
+        note_results = Note.query.filter(Note.title.contains(searched_term)).all()
+        if note_results:
+            for note in note_results:
+                return render_template('search.html',searched=searched_term, note_results=note.content)
+        else:
+            return jsonify({'message':'Note not found'})
+        return render_template('search.html', searched=searched_term)
+
+@app.route('/translate/<searched>/<note_results>', methods = ['GET','POST'])
+def translate(searched,note_results):
+    result1 =""
+    result2 =""
+    if request.method == "POST":
+        yetTo_TranslateTitle = searched
+        yetTo_TranslateContent = note_results
+        selected_language = request.form['language']
+        # lang = detectlanguage.batch_detect(yetTo_TranslateTitle,yetTo_TranslateContent)
+        # if lang:
+        translatedTitle = GoogleTranslator(source='auto',target= selected_language).translate(yetTo_TranslateTitle)
+        translatedContent = GoogleTranslator(source='auto',target= selected_language).translate(yetTo_TranslateContent)
+        # Note.title = result1
+        # Note.content = result2
+        # print (Note.title, Note.content)
+        return render_template('translate.html',result1=translatedTitle, result2 =translatedContent)
+    else:
+        return jsonify({'note_exists':False})
+
+@app.route('/createFolder', methods = ['GET','POST'])
+def create_folder():
+    form = FolderForm()
+    if form.validate_on_submit():
+        folderName = Folder(name = form.name.data)
+        db.session.add(folderName)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template('createFolder.html',form = form)
+
+
+@app.route('/chooseFolder/<note_id>', methods = ['GET', 'POST'])
+def chooseFolder(note_id):
+    form = FolderForm()
+    if request.method =="POST":
+        folderName = request.form.get('name')
+        folderResults = Folder.query.filter(Folder.name == folderName).first()
+        return render_template('chooseFolder.html',form=form, folderResults=folderResults, note_id=note_id)
+    return render_template('chooseFolder.html', form=form, note_id=note_id)
+    #     print("new code is here")
+    # return redirect(url_for('add_to_folder',note_id=note_id))
+
+
+@app.route('/addToFolder/<note_id>', methods = ['GET', 'POST'])
+def add_to_folder(note_id):
+    form = FolderForm()
+    print("code is here")
+    if request.method == "POST":
+        print("im here")
+        folderName = form.name.data
+        folderResults = Folder.query.filter(Folder.name == folderName).first()
+        note = Note.query.get(note_id)
+        if folderResults:
+            print("code is in the if statement")
+            note = Note.query.get(note_id)
+            if note:
+                if note not in folderResults.notes:
+                    folderResults.notes.append(note)
+                    db.session.commit()
+                    print('Note added to folder successfully!', 'success')
+                else:
+                    print('Note already exists in the folder.')
+            else:
+                print("Note not found")
+        else:
+            print("Creating a new folder.")
+            new_folder = Folder(name=folderName)
+            note = Note.query.get(note_id)
+            if note:
+                new_folder.notes.append(note)
+                db.session.add(new_folder)
+                db.session.commit()
+                print('Folder and note added successfully!', 'success')
+            else:
+                print('Note not found.')
+        return redirect(url_for('dashboard', note_id = note_id))
+    return render_template('addToFolder.html', form=form)
+
+
+
+
+
+
 
 
 with app.app_context():
