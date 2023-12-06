@@ -39,7 +39,7 @@ To install MemoMate, follow these steps:
 - pip install Bootstrap
      
 ## Usage
-Run Project: python app.py
+Run Project: python3 noteapp.py
    
 ## Technologies Used
 SQLAlchemy - Python SQL toolkit
