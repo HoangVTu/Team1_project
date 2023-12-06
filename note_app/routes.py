@@ -328,7 +328,6 @@ def create_folder():
         return redirect(url_for('dashboard'))
     return render_template('createFolder.html',form = form)
 
-
 @app.route('/chooseFolder/<note_id>', methods = ['GET', 'POST'])
 def chooseFolder(note_id):
     form = FolderForm()

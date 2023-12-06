@@ -1,11 +1,14 @@
 <!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login to MemoMate</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <style>
         body {
             display: flex;
@@ -15,6 +18,7 @@
             background-color: #f4f4f4;
             margin: 0;
         }
+
         .container {
             width: 30%;
             background-color: #fff;
@@ -23,18 +27,22 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             text-align: center;
             color: #333;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             color: #555;
         }
+
         .form-group input {
             width: 100%;
             padding: 10px;
@@ -42,6 +50,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .form-group button {
             background-color: #007bff;
             color: white;
@@ -53,11 +62,13 @@
             transition: background-color 0.3s ease;
             width: 100%;
         }
+
         .form-group button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <form method="post" action="{{ url_for('login') }}">
@@ -79,7 +90,13 @@
         </form>
         <div class="form-group">
             <a href="{{ url_for('reset_password') }}">Forgot Password?</a>
-        </div> 
+        </div>
+
+        <!-- Home Button (Moved outside of the form) -->
+        <div class="form-group">
+            <a href="{{ url_for('home') }}" class="btn btn-primary">Home</a>
+        </div>
     </div>
 </body>
+
 </html>

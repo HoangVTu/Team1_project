@@ -91,6 +91,24 @@
             border-radius: 8px;
             z-index: 1000;
         }
+
+        /* Style for the home button */
+        .home-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 
     <script>
@@ -111,6 +129,9 @@
 </head>
 
 <body>
+    <!-- Home Button -->
+    <a href="{{ url_for('home') }}" class="home-button">Home</a>
+
     <div class="header">
         <h1>Dashboard</h1>
     </div>
@@ -124,35 +145,30 @@
     <div class="container">
         <div class="button-container">
             <button onclick="location.href='/create_note'">Create Note</button>
-            <button onclick = "location.href = '/createFolder'" style = "float: middle;">Create Folder</button>
+            <button onclick="location.href='/createFolder'" style="float: middle;">Create Folder</button>
             <button onclick="openStarredNotesPopup()">View Starred Notes</button>
             <button onclick="location.href='/log_out'">Log Out</button>
         </div>
-    <form method="POST" action ='/search'>
-    <div class = "container" style=" width: 1390px" >
-        <div class="row height d-flex justify-content-center align-items-center" >
-            <div class="search" style = "text-align: center;">
-              <i class="fa fa-search"></i>
-              <input type="text" class="form-control" id = "search" name = "search" placeholder="Search for notes">
-              <button type = "submit">Search</button>
+        <form method="POST" action='/search'>
+            <div class="container" style="width: 1390px">
+                <div class="row height d-flex justify-content-center align-items-center">
+                    <div class="search" style="text-align: center;">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control" id="search" name="search"
+                            placeholder="Search for notes">
+                        <button type="submit">Search</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div> 
-    </form>
+        </form>
         <div class="notes-container" id="notes-area">
             <h2>Your Notes</h2>
         </div>
     </div>
-        <div class = "container folders-container" id = 'folder-area'>
+    <div class="container folders-container" id='folder-area'>
         <h2> Your Folders</h2>
-        </div>
     </div>
-
-
-
-
-
-
+    </div>
 
     <div id="starredNotesPopup" class="popup">
         <h2>Starred Notes</h2>
@@ -166,7 +182,7 @@
                 .then(response => response.json())
                 .then(notes => {
                     const notesArea = document.getElementById('notes-area');
-                    notesArea.innerHTML = ''; 
+                    notesArea.innerHTML = '';
                     notes.forEach(note => {
                         const noteDiv = document.createElement('div');
                         noteDiv.className = 'note';
@@ -178,7 +194,7 @@
                                 ${note.is_starred ? 'Unstar' : 'Star'}
                             </button>
                             <button onclick="location.href='/edit_note/${note.id}'">Edit</button>
-                            <button onclick = "location.href = '/chooseFolder/${note.id}'" >Add to folder</button>
+                            <button onclick="location.href='/chooseFolder/${note.id}'">Add to folder</button>
                         `;
                         notesArea.appendChild(noteDiv);
                     });
@@ -215,7 +231,6 @@
             document.getElementById('starredNotesPopup').style.display = 'block';
         }
 
-
         function closeStarredNotesPopup() {
             document.getElementById('starredNotesPopup').style.display = 'none';
         }
@@ -236,48 +251,43 @@
         }
     </script>
 
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        fetch('/api/folders')
-            .then(response => response.json())
-            .then(folders => {
-                const folderArea = document.getElementById('folder-area');
-                folders.forEach(folder => {
-                    const folderDiv = document.createElement('div');
-                    folderDiv.className = 'folder';
-                    folderDiv.innerHTML = `
-                        <h3>${folder.name}</h3>
-                        <h4>Notes in this folder:</h4>
-                        <ul id="notes-${folder.id}"></ul>
-                    `;
-                    folderArea.appendChild(folderDiv);
+            fetch('/api/folders')
+                .then(response => response.json())
+                .then(folders => {
+                    const folderArea = document.getElementById('folder-area');
+                    folders.forEach(folder => {
+                        const folderDiv = document.createElement('div');
+                        folderDiv.className = 'folder';
+                        folderDiv.innerHTML = `
+                            <h3>${folder.name}</h3>
+                            <h4>Notes in this folder:</h4>
+                            <ul id="notes-${folder.id}"></ul>
+                        `;
+                        folderArea.appendChild(folderDiv);
 
-                    // Fetch notes for the current folder
-                    fetch(`/api/folders/${folder.id}/notes`)
-                        .then(response => response.json())
-                        .then(notes => {
-                            const notesDiv = document.createElement('div');
-                            notesDiv.className = 'notesFolder';
-                            notes.forEach(note => {
-                                const noteItem = document.createElement('li');
-                                noteItem.innerHTML = `
-                                    ${note.title}
-                                `;
-                                notesDiv.appendChild(noteItem);
-                            });
-                            folderArea.appendChild(notesDiv);
-                        })
-                        .catch(error => console.error(`Error fetching notes for folder ${folder.id}:`, error));
-                });
-            })
-            .catch(error => console.error('Error fetching folders:', error));
+                        // Fetch notes for the current folder
+                        fetch(`/api/folders/${folder.id}/notes`)
+                            .then(response => response.json())
+                            .then(notes => {
+                                const notesDiv = document.createElement('div');
+                                notesDiv.className = 'notesFolder';
+                                notes.forEach(note => {
+                                    const noteItem = document.createElement('li');
+                                    noteItem.innerHTML = `
+                                        ${note.title}
+                                    `;
+                                    notesDiv.appendChild(noteItem);
+                                });
+                                folderArea.appendChild(notesDiv);
+                            })
+                            .catch(error => console.error(`Error fetching notes for folder ${folder.id}:`, error));
+                    });
+                })
+                .catch(error => console.error('Error fetching folders:', error));
         });
     </script>
-
-
-
 </body>
 
 </html>

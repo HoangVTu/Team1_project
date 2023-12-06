@@ -32,6 +32,7 @@ To install MemoMate, follow these steps:
 - pip install python-dotenv
 - pip install Flask-Bcrypt
 - pip install flask-socketio
+- pip install deep_translator
 - pip install Bootstrap
      
 ## Usage
