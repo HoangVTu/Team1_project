@@ -1,30 +1,41 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from note_app import app, db
-from note_app.models import Note, User,Folder
-from note_app.forms import NoteForm, RegistrationForm, LoginForm, PasswordResetForm,FolderForm
+from note_app.models import Note, User, Folder
+from note_app.forms import NoteForm, RegistrationForm, LoginForm, PasswordResetForm, FolderForm
 from datetime import datetime
 from deep_translator import GoogleTranslator
 
-
+# Route for the home page
 @app.route('/')
 def home():
     return render_template('home.html')
 
-
+# API route for handling notes (GET and POST)
 @app.route('/api/notes', methods=['GET', 'POST'])
 def handle_notes():
+    # Check if user is logged in
     if 'username' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
+    
+    # Retrieve user information
     user = User.query.filter_by(username=session['username']).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
-    print("handle_notes function called")
-    notes = Note.query.order_by(Note.created_at.desc()).all()
-    print("Notes to send:", notes)
+    
+    # Handling GET request for notes
+    if request.method == 'GET':
+        notes = Note.query.filter_by(user_id=user.id).order_by(Note.created_at.desc()).all()
+        return jsonify([
+            {'id': note.id, 'title': note.title, 'content': note.content,
+             'created_at': note.created_at.isoformat(), 'is_starred': note.is_starred, 'highlights': note.highlights}
+            for note in notes
+        ])
+
+    # Handling POST request for adding a new note
     if request.method == 'POST':
         data = request.json
-        print("Received data:", data)
         form = NoteForm(meta={'csrf': False})
+        
         if form.validate_on_submit():
             new_note = Note(
                 title=form.title.data,
@@ -38,83 +49,66 @@ def handle_notes():
             return jsonify({'message': 'Note added', 'id': new_note.id}), 201
         else:
             return jsonify({'errors': form.errors}), 400
-    notes = Note.query.filter_by(user_id=user.id).order_by(Note.created_at.desc()).all()
-    return jsonify([
-        {'id': note.id, 'title': note.title, 'content': note.content,
-         'created_at': note.created_at.isoformat(), 'is_starred': note.is_starred, 'highlights': note.highlights}
-        for note in notes
-    ])
 
-
+# Route for a simple test
 @app.route('/test')
 def test():
     return 'Test successful!'
 
-
+# Route for user registration
 @app.route('/register', methods=['POST', 'GET'])
 def register_acc():
     form = RegistrationForm()
-
 
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data
         password = form.password.data
 
-
+        # Check if username or email already exists
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
             return "Username or email already exists. Please choose different credentials."
 
-
-
-
-        new_user = User(username=username, email=email, password=password, security_answer=form.security_answer.data)  
-        # print(new_user)
+        # Create a new user
+        new_user = User(username=username, email=email, password=password, security_answer=form.security_answer.data)
         db.session.add(new_user)
         db.session.commit()
 
-
-        session['username'] = username  
-        return redirect(url_for('dashboard'))  
-
+        # Log in the new user
+        session['username'] = username
+        return redirect(url_for('dashboard'))
 
     return render_template('register.html', form=form)
 
-
-
-
+# Route for user login
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form = LoginForm()
-
 
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
 
-
+        # Check if user exists and credentials are valid
         user = User.query.filter_by(username=username, password=password).first()
-
-
         if user:
             session['username'] = username
             return redirect(url_for('dashboard'))
-
-
-        return "Invalid login credentials. Please try again."
-
+        else:
+            return "Invalid login credentials. Please try again."
 
     return render_template('login.html', form=form)
 
-
+# Route for logging out
 @app.route('/log_out')
 def log_out():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-
+# Route for user dashboard
 @app.route('/dashboard')
 def dashboard():
+    # Check if user is logged in
     if 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
         if user:
@@ -123,14 +117,12 @@ def dashboard():
     else:
         return redirect(url_for('login'))
 
-
-
-
+# Route for creating a new note
 @app.route('/create_note', methods=['GET', 'POST'])
 def create_note():
+    # Check if user is logged in
     if 'username' not in session:
         return redirect(url_for('login'))
-
 
     user = User.query.filter_by(username=session['username']).first()
     if not user:
@@ -142,7 +134,6 @@ def create_note():
         highlights = request.form.get('highlights')
         reminder_str = request.form.get('reminder')
 
-
         reminder = None
         if reminder_str:
             try:
@@ -150,53 +141,51 @@ def create_note():
             except ValueError:
                 pass  
 
-
         new_note = Note(title=title, content=content, highlighted_text=highlights, reminder=reminder, user_id=user.id)
         db.session.add(new_note)
         db.session.commit()
 
-
         return redirect(url_for('dashboard'))
-
 
     return render_template('create_note.html')
 
-@app.route('/api/folders',methods = ['GET', 'POST'])
+# API route for handling folders (GET and POST)
+@app.route('/api/folders', methods=['GET', 'POST'])
 def handle_folders():
     print("handle_folders called")
     if request.method == "POST":
         folderData = request.json
-        print("Receieved data:", folderData)
-        form = FolderForm(meta = {'csrf':False})
+        print("Received data:", folderData)
+        form = FolderForm(meta={'csrf': False})
         if form.validate_on_submit():
-            new_folder = Folder(name = form.name.data)
+            new_folder = Folder(name=form.name.data)
             db.session.add(new_folder)
             db.session.commit()
-            return jsonify({'message': 'folder added', 'id': new_folder.id}),201
+            return jsonify({'message': 'folder added', 'id': new_folder.id}), 201
         else:
             return jsonify({'errors': form.errors}), 400
     folders = Folder.query.order_by(Folder.folder_id.desc()).all()
     folder_list =[]
     for folder in folders:
-        folderData = {'id':folder.folder_id, 'name':folder.name, 'notes': []}
+        folderData = {'id': folder.folder_id, 'name': folder.name, 'notes': []}
         for note in folder.notes:
             note_data = {'id': note.id, 'title': note.title, 'content': note.content}
             folderData['notes'].append(note_data)
         folder_list.append(folderData)
     return jsonify(folder_list)
 
-@app.route('/api/folders/<int:folderid>/notes', methods=['GET', 'POST'])
+# Route for handling notes within a folder (GET)
+@app.route('/api/folders/<int:folderid>/notes', methods=['GET'])
 def handle_notes_in_folders(folderid):
     print(f"Handling notes for folder {folderid}")
-    notes = Note.query.filter_by(folder_id = folderid).all()
+    notes = Note.query.filter_by(folder_id=folderid).all()
     note_list = []
     for note in notes:
         noteData = {'id': note.id, 'title': note.title, 'content': note.content}
         note_list.append(noteData)
     return jsonify(note_list)
 
-
-
+# Route for deleting a note (DELETE)
 @app.route('/delete_note/<int:note_id>', methods=['DELETE'])
 def delete_note(note_id):
     note = Note.query.get(note_id)
@@ -206,7 +195,7 @@ def delete_note(note_id):
         return jsonify({'message': 'Note deleted'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
-
+# Route for starring a note (POST)
 @app.route('/star_note/<int:note_id>', methods=['POST'])
 def star_note(note_id):
     note = Note.query.get(note_id)
@@ -217,7 +206,7 @@ def star_note(note_id):
         return jsonify({'message': 'Note starred'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
-
+# Route for un-starring a note (POST)
 @app.route('/unstar_note/<int:note_id>', methods=['POST'])
 def unstar_note(note_id):
     note = Note.query.get(note_id)
@@ -228,7 +217,7 @@ def unstar_note(note_id):
         return jsonify({'message': 'Note unstarred'}), 200
     return jsonify({'message': 'Note not found'}), 404
 
-
+# Route for resetting password (GET and POST)
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_password():
     form = PasswordResetForm()
@@ -242,17 +231,15 @@ def reset_password():
             return "Invalid email or security answer."
     return render_template('password_reset.html', form=form)
 
-
+# API route for retrieving starred notes (GET)
 @app.route('/api/starred_notes', methods=['GET'])
 def get_starred_notes():
     if 'username' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
 
-
     user = User.query.filter_by(username=session['username']).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
-
 
     starred_notes = Note.query.filter_by(user_id=user.id, is_starred=True).all()
     return jsonify([
@@ -260,11 +247,10 @@ def get_starred_notes():
         for note in starred_notes
     ])
 
-
+# Route for editing a note (GET and POST)
 @app.route('/edit_note/<int:note_id>', methods=['GET', 'POST'])
 def edit_note(note_id):
     note = Note.query.get_or_404(note_id)
-
 
     if request.method == 'POST':
         note.title = request.form['title']
@@ -272,10 +258,9 @@ def edit_note(note_id):
         db.session.commit()
         return redirect('/dashboard')
 
-
     return render_template('edit_note.html', note=note)
 
-
+# Route for updating a note (POST)
 @app.route('/update_note/<int:note_id>', methods=['POST'])
 def update_note(note_id):
     note = Note.query.get_or_404(note_id)
@@ -284,64 +269,57 @@ def update_note(note_id):
     db.session.commit()
     return redirect('/dashboard')
 
-
-
-
-@app.route('/search', methods = ['GET', 'POST'])
+# Route for searching notes (GET and POST)
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method =="POST":
-        searched_term =  request.form['search']
+    if request.method == "POST":
+        searched_term = request.form['search']
         note_results = Note.query.filter(Note.title.contains(searched_term)).all()
         if note_results:
             for note in note_results:
-                return render_template('search.html',searched=searched_term, note_results=note.content)
+                return render_template('search.html', searched=searched_term, note_results=note.content)
         else:
-            return "The note was note found. Please try again."
+            return "The note was not found. Please try again."
         return render_template('search.html', searched=searched_term)
 
-@app.route('/translate/<searched>/<note_results>', methods = ['GET','POST'])
-def translate(searched,note_results):
-    result1 =""
-    result2 =""
+# Route for translating notes (GET and POST)
+@app.route('/translate/<searched>/<note_results>', methods=['GET', 'POST'])
+def translate(searched, note_results):
+    result1 = ""
+    result2 = ""
     if request.method == "POST":
         yetTo_TranslateTitle = searched
         yetTo_TranslateContent = note_results
         selected_language = request.form['language']
-        # lang = detectlanguage.batch_detect(yetTo_TranslateTitle,yetTo_TranslateContent)
-        # if lang:
-        translatedTitle = GoogleTranslator(source='auto',target= selected_language).translate(yetTo_TranslateTitle)
-        translatedContent = GoogleTranslator(source='auto',target= selected_language).translate(yetTo_TranslateContent)
-        # Note.title = result1
-        # Note.content = result2
-        # print (Note.title, Note.content)
-        return render_template('translate.html',result1=translatedTitle, result2 =translatedContent)
+        translatedTitle = GoogleTranslator(source='auto', target=selected_language).translate(yetTo_TranslateTitle)
+        translatedContent = GoogleTranslator(source='auto', target=selected_language).translate(yetTo_TranslateContent)
+        return render_template('translate.html', result1=translatedTitle, result2=translatedContent)
     else:
-        return jsonify({'note_exists':False})
+        return jsonify({'note_exists': False})
 
-@app.route('/createFolder', methods = ['GET','POST'])
+# Route for creating a new folder (GET and POST)
+@app.route('/createFolder', methods=['GET', 'POST'])
 def create_folder():
     form = FolderForm()
     if form.validate_on_submit():
-        folderName = Folder(name = form.name.data)
+        folderName = Folder(name=form.name.data)
         db.session.add(folderName)
         db.session.commit()
         return redirect(url_for('dashboard'))
-    return render_template('createFolder.html',form = form)
+    return render_template('createFolder.html', form=form)
 
-
-@app.route('/chooseFolder/<note_id>', methods = ['GET', 'POST'])
+# Route for choosing a folder for a note (GET and POST)
+@app.route('/chooseFolder/<note_id>', methods=['GET', 'POST'])
 def chooseFolder(note_id):
     form = FolderForm()
-    if request.method =="POST":
+    if request.method == "POST":
         folderName = request.form.get('name')
         folderResults = Folder.query.filter(Folder.name == folderName).first()
-        return render_template('chooseFolder.html',form=form, folderResults=folderResults, note_id=note_id)
+        return render_template('chooseFolder.html', form=form, folderResults=folderResults, note_id=note_id)
     return render_template('chooseFolder.html', form=form, note_id=note_id)
-    #     print("new code is here")
-    # return redirect(url_for('add_to_folder',note_id=note_id))
 
-
-@app.route('/addToFolder/<note_id>', methods = ['GET', 'POST'])
+# Route for adding a note to a folder (GET and POST)
+@app.route('/addToFolder/<note_id>', methods=['GET', 'POST'])
 def add_to_folder(note_id):
     form = FolderForm()
     print("code is here")
@@ -373,26 +351,25 @@ def add_to_folder(note_id):
                 print('Folder and note added successfully!', 'success')
             else:
                 print('Note not found.')
-        return redirect(url_for('dashboard', note_id = note_id))
+        return redirect(url_for('dashboard', note_id=note_id))
     return render_template('addToFolder.html', form=form)
 
 
-
+# Route for handling a security question (GET and POST)
 @app.route('/user_question', methods=['GET', 'POST'])
 def user_question():
     if request.method == 'POST':
         securityAnswer = request.form['security_answer']
         user = User.query.filter_by(security_answer=securityAnswer).first()
         if user:
-              #Redirect to the edit_user_profile route, passing user ID as an argument
+            # Redirect to the edit_user_profile route, passing user ID as an argument
             return redirect(url_for('edit_user_profile', user_id=user.id))
         else:
             return jsonify({'answer': False})
     
     return render_template('displayUserQuestion.html')
 
-
-
+# Route for editing user profile (GET and POST)
 @app.route('/userProfile', methods=['GET', 'POST'])
 def edit_user_profile():
     if request.method == "POST":
@@ -423,14 +400,10 @@ def edit_user_profile():
     return render_template('editUserProfile.html')  
 
 
-
-
 with app.app_context():
     db.drop_all()  
     db.create_all()
 
-
-
-
+# Run the Flask application
 if __name__ == '__main__':
-    app.run (debug = True)
+    app.run(debug=True)

@@ -48,6 +48,7 @@
 - **Discussed current project changes and status**
 - **Team Update**
 - **Only small edits left to be made**
-- **Video to be completed tonight & complete package turned in tonight by Hoang**
+- **Video to be completed & package by tonight or tomorrow by Steve**
+- **Hoang is assign to submit the assignment for the group by tonight or tomorrow**
 - **All team member have completed their requirements and push everything in github**
-- **Summary: All team members complete and video to be made**
+- **Summary: All team members requirements is complete and presentation video need to be made. Lastly, the assignment will be submit by Hoang after completion**
