@@ -101,11 +101,13 @@
 
 **8. Edit user profile(Gautam)**
 - **Pre-condition:** User is logged into the app and is on the dashboard
-- **Trigger:** User click on the navigation bar
+- **Trigger:** User navigates to edit user profile button
 - **Primary Sequence:**
-1. The user select and click on profile button
+1. The user clicks on profile button
 2. The system will take the user to a different page
-- **Primary Postconditions:** The system take the user to their profile page
+3. User answers the security question
+4. User edits account details
+- **Primary Postconditions:** The system takes the user to dashboard if everything was correctly inputed
 - **Alternate Sequence:**
 1. The user did not click on the profile button
 
@@ -115,11 +117,13 @@
 - **Primary Sequence:** 
 1. System displays a text box to name the folder 
 2. The user names the folder
-3. The system displays a list of note files that the user can add 
+3. The system displays the folder in the folder area
 - **Primary Postconditions:** The folder that was created contains note files that the user wanted to add and is organized
 - **Alternate Sequence:**
-1. User did not click on "Create Folder" button
-2. User don't have any notes
+1. User clicks the add to folder
+2. System displays enter box to input title of folder
+3. User enters title and clicks enter
+4. System displays note under that folder in the folder area
 
 **10. Dashboard (Steve)** 
 - **Pre-condition:** User has log into their account
